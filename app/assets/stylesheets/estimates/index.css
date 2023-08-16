@@ -1,0 +1,19 @@
+.button-row {
+  margin-bottom: 40px;
+}
+
+.button-row .btn {
+  margin-bottom: 40px;
+}
+
+.title-contents {
+  height: 80px;
+}
+
+.col-sm {
+  margin-top: 30px;
+}
+
+.full-height {
+  height: 100vh;
+}
