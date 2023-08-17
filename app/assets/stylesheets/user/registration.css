@@ -1,0 +1,60 @@
+/* 全体的なスタイリング */
+.form-wrap {
+  max-width: 600px; /* フォームの最大幅を指定 */
+  margin: 2em auto; /* 上下に余白を追加し、水平方向を中央揃え */
+  padding: 1em;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); /* 影を追加して浮き出し感を出す */
+}
+
+.form-header-text {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px; /* h1タグの下の余白を調整 */
+}
+
+.form-text-wrap {
+  display: flex; /* ラベルと必須マークを水平方向に並べる */
+  justify-content: space-between; /* スペースを最大限に取る */
+  align-items: center; /* 縦方向の中央に配置 */
+  margin-bottom: 5px; /* ラベルと入力の間隔を狭くする */
+}
+
+.indispensable {
+  color: red;
+  font-size: 12px;
+}
+
+.input-default {
+  width: 100%; /* 入力フィールドを親要素の幅に合わせる */
+  padding: 10px; /* 入力フィールドの内側のパディングを調整 */
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.input-name-wrap {
+  display: flex; /* 姓と名の入力フィールドを並べる */
+  gap: 10px; /* 2つの入力フィールドの間隔 */
+}
+
+.input-name {
+  flex: 1; /* それぞれの入力フィールドが等しい幅を取るようにする */
+}
+
+.info-text {
+  font-size: 12px; /* テキストのフォントサイズを調整 */
+  color: #777; 
+  margin-top: 5px; /* 上の余白を追加 */
+}
+
+.register-red-btn {
+  background-color: #FF4500;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
