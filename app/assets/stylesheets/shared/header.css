@@ -1,0 +1,34 @@
+.title-contents {
+  background-color: lavender;
+}
+
+.navbar {
+  height: 80px;
+  background-color: lavender;
+}
+
+.navbar-brand {
+  font-size: 30px;
+  color: midnightblue;
+}
+
+.lists-right {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+}
+
+.lists-right li {
+  margin-right: 10px;
+  align-items: center;
+  display: flex;
+}
+
+.user-name {
+  color: black;
+  font-size: 22px;
+}
+
+.navbar-brand.site-title {
+  font-size: 30px;
+}
