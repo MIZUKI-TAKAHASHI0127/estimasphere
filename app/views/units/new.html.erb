@@ -1,0 +1,26 @@
+<%= render "shared/header" %>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h3 class="mb-4 text-center">単位登録</h3>
+
+      <%= form_with url: units_path, method: :post, local: true do |form| %>
+        <div id="units">
+          <%= form.fields_for 'units[]', Unit.new do |unit_form| %>
+            <div class="form-group">
+              <%= unit_form.label :unit_name, "単位" %>
+              <%= unit_form.text_field :unit_name, class: "form-control", placeholder: "単位を入力してください" %>
+            </div>
+          <% end %>
+        </div>
+        <script src="js/sales_quotation.js"></script>
+
+        <div class="text-center mt-4">
+          <%= form.submit "登録", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

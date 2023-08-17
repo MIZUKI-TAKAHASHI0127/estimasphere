@@ -1,0 +1,44 @@
+<%= render "shared/header" %>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<h3>登録情報</h3>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="table-responsive">
+        <% @company_infos.each do |info| %>
+          <table class="table table-bordered table-striped">
+            <tbody>
+              <tr>
+                <th>会社名</th>
+                <td><%= info.company_name %></td>
+              </tr>
+              <tr>
+                <th>郵便番号</th>
+                <td><%= info.postcode %></td>
+              </tr>
+              <tr>
+                <th>住所</th>
+                <td><%= info.address %></td>
+              </tr>
+              <tr>
+                <th>電話番号</th>
+                <td><%= info.phone_number %></td>
+              </tr>
+              <tr>
+                <th>FAX番号</th>
+                <td><%= info.fax_number %></td>
+              </tr>
+            </tbody>
+          </table>
+          <%= link_to '編集', edit_company_info_path(info), class: 'btn btn-secondary mb-3' %> <!-- 編集ボタン -->
+        <% end %>
+        <% unless @company_infos.count > 0 %> <!-- データが登録されていない場合のみ新規登録ボタンを表示 -->
+          <div class="text-center">
+            <%= link_to '新規登録', new_company_info_path, class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<%= render "shared/header" %>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<h3>会社詳細情報</h3>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <table class="table table-bordered table-striped">
+        <tbody>
+          <tr>
+            <th>会社名</th>
+            <td><%= @company_info.company_name %></td>
+          </tr>
+          <tr>
+            <th>郵便番号</th>
+            <td><%= @company_info.postcode %></td>
+          </tr>
+          <tr>
+            <th>住所</th>
+            <td><%= @company_info.address %></td>
+          </tr>
+          <tr>
+            <th>電話番号</th>
+            <td><%= @company_info.phone_number %></td>
+          </tr>
+          <tr>
+            <th>FAX番号</th>
+            <td><%= @company_info.fax_number %></td>
+          </tr>
+        </tbody>
+      </table>
+      <%= link_to '編集', edit_company_info_path(@company_info), class: 'btn btn-secondary mb-3' %> <!-- 編集ボタン -->
+      <%= link_to '戻る', company_infos_path, class: 'btn btn-light mb-3' %> <!-- 戻るボタン -->
+    </div>
+  </div>
+</div>
