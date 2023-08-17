@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_15_215837) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_15_221237) do
   create_table "categories", charset: "utf8", force: :cascade do |t|
     t.string "category_name", null: false
     t.datetime "created_at", null: false
@@ -26,6 +26,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_15_215837) do
     t.string "fax_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "units", charset: "utf8", force: :cascade do |t|
+    t.string "unit_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["unit_name"], name: "index_units_on_unit_name", unique: true
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
