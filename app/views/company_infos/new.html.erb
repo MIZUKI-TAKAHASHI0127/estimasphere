@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>会社情報登録</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<%= render "shared/header"%>
+<body>
+  <div class="container">
+    <h3>会社情報登録</h3>
+    <% if @company_info.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@company_info.errors.count, "error") %> prohibited this company from being saved:</h2>
+
+        <ul>
+          <% @company_info.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_with model: @company_info, local: true do |form| %>
+      <div class="form-group">
+        <%= form.label :company_name, "会社名" %>
+        <%= form.text_field :company_name, class: "form-control", placeholder: "Company name" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :postcode, "郵便番号" %>
+        <%= form.text_field :postcode, class: "form-control", placeholder: "Postal code" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :address, "住所" %>
+        <%= form.text_field :address, class: "form-control", placeholder: "Address" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :phone_number, "電話番号" %>
+        <%= form.text_field :phone_number, class: "form-control", placeholder: "Phone number" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :fax_number, "FAX番号" %>
+        <%= form.text_field :fax_number, class: "form-control", placeholder: "Fax number" %>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <%= form.submit "登録", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</body>
+</html>

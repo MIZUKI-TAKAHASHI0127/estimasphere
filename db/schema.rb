@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_15_180514) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_15_215837) do
+  create_table "categories", charset: "utf8", force: :cascade do |t|
+    t.string "category_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_name"], name: "index_categories_on_category_name", unique: true
+  end
+
+  create_table "company_infos", charset: "utf8", force: :cascade do |t|
+    t.string "company_name", null: false
+    t.string "postcode", null: false
+    t.string "address", null: false
+    t.string "phone_number", null: false
+    t.string "fax_number", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", charset: "utf8", force: :cascade do |t|
     t.string "last_name", default: "", null: false
     t.string "first_name", default: "", null: false

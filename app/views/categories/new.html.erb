@@ -1,0 +1,25 @@
+<%= render "shared/header"%>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <%= form_with url: categories_path, method: :post, local: true do |form| %>
+        <div id="categories">
+          <%= form.fields_for 'categories[]', Category.new do |category_form| %>
+            <div class="form-group">
+              <%= category_form.label :category_name, "カテゴリー名" %>
+              <%= category_form.text_field :category_name, class: "form-control" %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="text-center mt-4">
+          <%= form.submit "登録", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
