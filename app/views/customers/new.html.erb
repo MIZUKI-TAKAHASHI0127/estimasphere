@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>顧客情報登録</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<%= render "shared/header"%>
+<body>
+  <div class="container">
+    <h3>顧客情報登録</h3>
+    <% if @customer.errors.any? %>
+      <div id="error_explanation">
+    <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+    <ul>
+      <% @customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    </div>
+    <% end %>
+
+
+    <%= form_with model: @customer, local: true do |form| %>
+      <div class="form-group">
+        <%= form.label :customer_name, "顧客名" %>
+        <%= form.text_field :customer_name, class: "form-control", placeholder: "Customer name" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :customer_code, "顧客コード" %>
+        <%= form.text_field :customer_code, class: "form-control", placeholder: "Customer code" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :address, "住所" %>
+        <%= form.text_field :address, class: "form-control", placeholder: "Address" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :phone_number, "電話番号" %>
+        <%= form.text_field :phone_number, class: "form-control", placeholder: "Phone number" %>
+      </div>
+ 
+      <%= form.fields_for :representatives do |representative_fields| %>
+        <div class="form-group">
+          <%= representative_fields.label :department_name, "担当部署" %>
+          <%= representative_fields.text_field :department_name, class: "form-control", placeholder: "Department name" %>
+        </div> 
+        <div class="form-group">
+          <%= representative_fields.label :representative_name, "担当者名" %>
+          <%= representative_fields.text_field :representative_name, class: "form-control", placeholder: "Representative name" %>
+        </div>
+        <div class="form-group">
+          <%= representative_fields.label :phone_number, "担当者電話番号" %>
+          <%= representative_fields.text_field :phone_number, class: "form-control", placeholder: "Phone number" %>
+        </div>
+        <div class="form-group">
+          <%= representative_fields.label :email, "Email address" %>
+          <%= representative_fields.email_field :email, class: "form-control", placeholder: "Email" %>
+        </div>
+      <% end %>
+
+      <div class="d-flex justify-content-center">
+        <% if @customer.persisted? %>
+          <%= form.submit "更新", class: "btn btn-primary" %>
+        <% else %>
+          <%= form.submit "登録", class: "btn btn-primary" %>
+        <% end %>
+
+      </div>
+    <% end %>
+  </div>
+</body>
+</html>
+

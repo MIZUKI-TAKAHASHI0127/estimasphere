@@ -1,0 +1,19 @@
+<head>
+
+  <title>担当者追加</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<%= render "shared/header"%>
+
+<div class="form-group">
+  <%= label_tag :customer_name, "会社名" %>
+  <div class="customer-name-display" style="font-size: 24px;">
+    <%= @customer.customer_name %>
+  </div>
+</div>
+
+<%= form_with model: @representative, url: '#', local: true do |form| %>
+  <%= render "representative_fields", f: form %>
+  <%= form.submit "登録", class: "btn btn-primary" %>
+<% end %>

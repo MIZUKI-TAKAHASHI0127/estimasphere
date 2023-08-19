@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_15_221237) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_16_002436) do
   create_table "categories", charset: "utf8", force: :cascade do |t|
     t.string "category_name", null: false
     t.datetime "created_at", null: false
@@ -26,6 +26,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_15_221237) do
     t.string "fax_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "customers", charset: "utf8", force: :cascade do |t|
+    t.string "customer_code"
+    t.string "customer_name", null: false
+    t.string "address", null: false
+    t.string "phone_number", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_code"], name: "index_customers_on_customer_code", unique: true
+  end
+
+  create_table "representatives", charset: "utf8", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.string "department_name"
+    t.string "representative_name"
+    t.string "phone_number"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_representatives_on_customer_id"
   end
 
   create_table "units", charset: "utf8", force: :cascade do |t|
@@ -49,4 +70,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_15_221237) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "representatives", "customers"
 end

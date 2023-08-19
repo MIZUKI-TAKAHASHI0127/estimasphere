@@ -30,10 +30,10 @@
         </div>
         <div class="row button-row mb-2">
             <div class="col-sm">
-              <%= link_to("#", class: 'btn btn-info btn-lg btn-block') do %>
+              <%= link_to(new_customer_path, class: 'btn btn-info btn-lg btn-block') do %>
                 <i class="fas fa-user-plus"></i> 顧客登録
               <% end %>
-              <%= link_to("#", class: 'btn btn-info btn-lg btn-block') do %>
+              <%= link_to(customers_path, class: 'btn btn-info btn-lg btn-block') do %>
                 <i class="fas fa-users"></i> 顧客一覧
               <% end %>
             </div>

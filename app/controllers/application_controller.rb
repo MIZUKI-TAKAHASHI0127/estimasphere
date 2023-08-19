@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   before_action :basic_auth
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-
+  protect_from_forgery
+  
   private
 
   def basic_auth
