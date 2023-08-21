@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
 <head>
-
   <title>顧客情報登録</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
-<%= render "shared/header"%>
+
 <body>
   <div class="container">
     <h3>顧客情報登録</h3>
@@ -40,8 +35,11 @@
         <%= form.label :phone_number, "電話番号" %>
         <%= form.text_field :phone_number, class: "form-control", placeholder: "Phone number" %>
       </div>
- 
+      
+
       <%= form.fields_for :representatives do |representative_fields| %>
+      <hr>
+            <h5 class="my-3">担当者情報:</h5>
         <div class="form-group">
           <%= representative_fields.label :department_name, "担当部署" %>
           <%= representative_fields.text_field :department_name, class: "form-control", placeholder: "Department name" %>
@@ -64,12 +62,10 @@
         <% if @customer.persisted? %>
           <%= form.submit "更新", class: "btn btn-primary" %>
         <% else %>
-          <%= form.submit "登録", class: "btn btn-primary" %>
+          <%= form.submit "登録", class: "btn btn-success" %>
         <% end %>
 
       </div>
     <% end %>
   </div>
 </body>
-</html>
-

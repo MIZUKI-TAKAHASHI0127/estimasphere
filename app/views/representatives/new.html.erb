@@ -1,0 +1,28 @@
+<title>担当者追加</title>
+
+<div class="container mt-5">
+  <h4 class="text-center mb-4">担当者追加</h4>
+  
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <%= label_tag :customer_name, "会社名" %>
+            <div class="customer-name-display" style="font-size: 24px;">
+              <%= @customer.customer_name %>
+            </div>
+          </div>
+          
+          <%= form_with model: [@customer, @representative], local: true do |form| %>
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <%= render "shared/representative_fields", f: form %>
+            <div class="form-group text-center">
+              <%= form.submit "登録", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
