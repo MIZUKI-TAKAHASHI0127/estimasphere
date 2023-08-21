@@ -14,4 +14,16 @@ Rails.application.routes.draw do
   resources :categories, only: [:new, :create, :index]
 
   resources :units, only: [:new, :create, :index]
+
+  resources :customers, only: [:new, :create, :index, :show, :edit, :update] do
+    resources :representatives, only: [:index, :create, :new]
+    collection do
+      get :find
+      get :representatives
+    end
+    member do
+      #get 'new_representative', to: 'customers#new_representative'
+      #post 'new_representative', to: 'customers#create_representative'
+    end
+  end
 end

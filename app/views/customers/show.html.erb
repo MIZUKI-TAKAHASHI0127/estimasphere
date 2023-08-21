@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+          会社詳細
+        </div>
+        <div class="card-body">
+          <p class="card-text"><strong>顧客コード: </strong><%= @customer.customer_code %></p>
+          <p class="card-text"><strong>会 社 名: </strong><%= @customer.customer_name %></p>
+          <p class="card-text"><strong>住 所: </strong><%= @customer.address %></p>
+          <p class="card-text"><strong>電話番号: </strong><%= @customer.phone_number %></p>
+        </div>
+      </div>
+
+      <% @customer.representatives.each do |representative| %>
+        <div class="card mb-3 shadow-sm">
+
+          <div class="card-header bg-primary text-white">
+            担当者
+          </div>
+          <div class="card-body">
+            <p class="card-text"><strong>担当部署: </strong><%= representative.department_name %></p>
+            <p class="card-text"><strong>担当者名: </strong><%= representative.representative_name %></p>
+            <p class="card-text"><strong>Email: </strong><%= representative.email %></p>
+            <p class="card-text"><strong>電話番号: </strong><%= representative.phone_number %></p>
+          </div>
+        </div>
+      <% end %>
+
+      <%= link_to '顧客一覧に戻る', customers_path, class: 'btn btn-primary mr-2' %>
+      <%= link_to '編集', edit_customer_path(@customer), class: 'btn btn-secondary' %>
+    </div>
+  </div>
+</div>

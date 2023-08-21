@@ -81,3 +81,9 @@ end
 gem 'devise'
 
 gem 'sassc-rails'
+
+gem 'pry-byebug', group: :development
+
+gem 'kaminari'
+
+gem 'turbo-rails'
