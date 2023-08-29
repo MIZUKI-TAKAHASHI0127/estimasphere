@@ -72,6 +72,10 @@ class SalesQuotationsController < ApplicationController
   
 
   def show
+    @sales_quotation = SalesQuotation.find(params[:id])
+    @customer = @sales_quotation.customer
+    @company_info = CompanyInfo.first
+    @user = @sales_quotation.user
   end
 
   def edit
@@ -112,6 +116,7 @@ class SalesQuotationsController < ApplicationController
     @sales_quotation = SalesQuotation.find(params[:id])
     @customer = @sales_quotation.customer
     @company_info = CompanyInfo.first
+    @user = @sales_quotation.user
   end
 
   private

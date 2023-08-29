@@ -13,6 +13,7 @@
   <div class="d-flex justify-content-center mt-4">
     <h2>販売見積</h2>
   </div>
+
   <div class="card">
     <div class="card-body">
       <%= form_with model: @sales_quotation do |form| %>
@@ -32,21 +33,21 @@
     </div>
 
 
-           <%= form.label :delivery_place, "納入場所" %>
-           <%= form.text_field :delivery_place, class: "form-control" %>
+          <%= form.label :delivery_place, "納入場所" %>
+          <%= form.text_field :delivery_place, class: "form-control" %>
 
-           <%= form.label :request_date, "見積依頼日" %>
-           <%= form.date_field :request_date, class: "form-control" %>
+          <%= form.label :request_date, "見積依頼日" %>
+          <%= form.date_field :request_date, class: "form-control" %>
 
-           <%= form.label :quotation_date, "見積作成日" %>
-           <%= form.date_field :quotation_date, class: "form-control" %>
+          <%= form.label :quotation_date, "見積作成日" %>
+          <%= form.date_field :quotation_date, class: "form-control" %>
 
-           <%= form.label :quotation_due_date, "見積有効期限" %>
-           <%= form.date_field :quotation_due_date, class: "form-control" %>
+          <%= form.label :quotation_due_date, "見積有効期限" %>
+          <%= form.date_field :quotation_due_date, class: "form-control" %>
 
-           <%= form.label :delivery_date, "納入日" %>
-           <%= form.date_field :delivery_date, class: "form-control" %>
-         </div>
+          <%= form.label :delivery_date, "納入日" %>
+          <%= form.date_field :delivery_date, class: "form-control" %>
+  </div>
   
     <table class="table table-bordered mt-4">
     <thead>

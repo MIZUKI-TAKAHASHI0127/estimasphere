@@ -1,0 +1,93 @@
+.nested-fields {
+  display: none;
+}
+
+.quotation-wrapper {
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 影の設定 */
+  width: 90%; /* 一回り小さくするための設定 */
+  margin: 20px auto; /* 中央に配置するための設定 */
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+p {
+  margin-bottom: 5px;
+}
+
+tfoot {
+  font-size: 1.2em;
+}
+
+.page-break {
+  page-break-after: always;
+}
+
+/* テーブルのスタイル調整 */
+th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+td:nth-child(1), /* No. */
+td:nth-child(3), /* 数量 */
+td:nth-child(5), /* 単価 */
+td:nth-child(6)  /* 金額 */
+{
+  text-align: right;
+}
+
+th:nth-child(1) {
+  width: 5%; /* No.のセルの幅 */
+}
+
+/* 品名のセルの幅を狭くする */
+th:nth-child(2), /* 品名 */
+td:nth-child(2) /* 品名の値 */
+{
+    width: 25%; 
+}
+
+th:nth-child(3), /* 数量 */
+td:nth-child(3) /* 数量の値 */
+{
+    width: 10%; 
+}
+
+
+th:nth-child(4), /* 単位 */
+td:nth-child(4) /* 単位の値 */
+{
+    width: 8%; 
+}
+
+th:nth-child(5), /* 単価 */
+td:nth-child(5) /* 単価の値 */
+{
+    width: 12%; 
+}
+
+
+th:nth-child(6), /* 金額 */
+td:nth-child(6) /* 金額の値 */
+{
+    width: 18%; 
+}
+
+th:nth-child(7), /* 備考 */
+td:nth-child(7) /* 備考の値 */
+{
+    width: 20%; 
+}
+
+
+/* A4サイズの印刷設定 */
+@media print {
+  body {
+      width: 210mm;
+      height: 297mm;
+  }
+}
