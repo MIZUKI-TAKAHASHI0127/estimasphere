@@ -76,6 +76,19 @@ class SalesQuotationsController < ApplicationController
     @customer = @sales_quotation.customer
     @company_info = CompanyInfo.first
     @user = @sales_quotation.user
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "sales_quotations/show",
+               template: "sales_quotations/show",
+               encoding: "UTF-8",
+               font_name: "IPAexMincho",
+               formats: [:html],
+               layout: 'pdf',
+               disposition: 'attachment' # ブラウザでPDFを開くのではなく、ダウンロードさせる
+      end
+    end
   end
 
   def edit

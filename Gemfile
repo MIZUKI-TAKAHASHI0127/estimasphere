@@ -87,3 +87,6 @@ gem 'pry-byebug', group: :development
 gem 'kaminari'
 
 gem 'turbo-rails'
+
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'

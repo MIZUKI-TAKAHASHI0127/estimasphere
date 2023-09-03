@@ -84,10 +84,14 @@ td:nth-child(7) /* 備考の値 */
 }
 
 
+
 /* A4サイズの印刷設定 */
 @media print {
   body {
       width: 210mm;
       height: 297mm;
+  }
+  .pdf-download-button {
+    display: none;
   }
 }

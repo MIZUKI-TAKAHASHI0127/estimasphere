@@ -11,9 +11,13 @@
 }
 
 .col-sm {
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
 .full-height {
   height: 100vh;
+}
+
+body {
+  background: linear-gradient(to bottom right, #f9f9f9, #e9ecef); /* グラデーション背景 */
 }

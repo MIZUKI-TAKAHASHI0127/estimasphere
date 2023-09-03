@@ -2,12 +2,12 @@
   display: none;
 }
 
-.quotation-wrapper {
-  border: 1px solid #ccc;
-  padding: 20px;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 影の設定 */
-  width: 90%; /* 一回り小さくするための設定 */
-  margin: 20px auto; /* 中央に配置するための設定 */
+.pdf-quotation-wrapper {
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  width: auto;
+  margin: 0;
 }
 
 h1 {
@@ -89,5 +89,8 @@ td:nth-child(7) /* 備考の値 */
   body {
       width: 210mm;
       height: 297mm;
+  }
+  .download-button {
+    display: none;
   }
 }
