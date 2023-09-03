@@ -13,7 +13,7 @@ class SalesQuotationsController < ApplicationController
   def create
     @sales_quotation = SalesQuotation.new(sales_quotation_params)
     @sales_quotation.quotation_number = generate_new_quotation_number
-  
+
     @sales_quotation.sales_quotation_items = @sales_quotation.sales_quotation_items.reject do |item|
       item.category_id.blank? &&
       item.item_name.blank? &&
