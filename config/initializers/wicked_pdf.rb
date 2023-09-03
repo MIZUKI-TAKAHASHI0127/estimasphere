@@ -13,4 +13,3 @@ WickedPdf.config = {
   dpi: '300',
   default_font: 'IPAexMincho'
 }
-
