@@ -11,7 +11,7 @@ class CustomersController < ApplicationController
   
     @customers = @customers.order(created_at: :desc).page(params[:page]).per(30)
   end
-  
+
   
 
   def new
@@ -50,26 +50,6 @@ class CustomersController < ApplicationController
     end
   end
 
-  def find
-    customer = Customer.find_by(customer_code: params[:id])
-    if customer
-      render json: customer.slice(:customer_name, :address, :phone_number)
-    else
-      render json: {}, status: :not_found
-    end
-  end
-
-  def representatives
-    customer = Customer.find_by(customer_code: params[:code])
-    if customer
-      representatives = customer.representatives.select(:id, :department_name, :representative_name)
-      render json: representatives
-    else
-      render json: [], status: :not_found
-    end
-  end
-
-
   def new_representative
     @customer = Customer.find(params[:id])
     @representative = Representative.new
@@ -81,12 +61,31 @@ class CustomersController < ApplicationController
     @representative = @customer.representatives.build(representative_params)
 
     if @representative.save
-      redirect_to customers_path, notice: '担当者が正常に作成されました。'
+     redirect_to customers_path, notice: '担当者が正常に作成されました。'
     else
       render :new_representative
     end
   end
 
+  def representatives
+    @customer = Customer.find(params[:id])
+    @representatives = @customer.representatives
+  
+    respond_to do |format|
+      format.json { render json: @representatives }
+    end
+  end
+
+  def search_by_id
+    customer = Customer.find_by(id: params[:id])
+    if customer
+        render json: { customer_name: customer.customer_name }
+    else
+        render json: {}, status: 404
+    end
+  end
+ 
+  
 
   private
 

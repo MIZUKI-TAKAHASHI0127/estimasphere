@@ -1,0 +1,5 @@
+<ul>
+  <% customers.each do |customer| %>
+    <li data-action="click->autocomplete#selectCustomer" data-customer-id="<%= customer.id %>"><%= customer.customer_name %></li>
+  <% end %>
+</ul>

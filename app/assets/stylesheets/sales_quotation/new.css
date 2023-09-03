@@ -1,0 +1,46 @@
+.nested-fields {
+  display: none;
+}
+
+/* ベーススタイル */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 販売見積リストのスタイル */
+.table.table-bordered {
+  border-collapse: collapse;
+}
+
+
+.amount {
+  font-weight: bold;
+  text-align: right;
+}
+
+/* アイテムフィールドのスタイル調整 */
+.table .col-1, .table .col-2 {
+  width: 14.28%; /* 100% ÷ 7（7列あります） = 14.28% */
+}
+
+/* 入力フィールドの横幅をセルの幅に合わせる */
+.form-control {
+  width: 100%; /* すでに100%に設定されています */
+  box-sizing: border-box; /* paddingやborderを含む全体の幅を指定されたwidthに固定 */
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+}
+
+/* プルダウンの行の高さを調整 */
+select.form-control {
+  line-height: 1.5; 
+}
+
+/* プルダウンの高さを調整 */
+select.form-control > option {
+  padding: 5px 10px;
+}
+

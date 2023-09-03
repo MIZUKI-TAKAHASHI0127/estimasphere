@@ -1,0 +1,79 @@
+<div class="container mt-5">
+
+  <% if @sales_quotation.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@sales_quotation.errors.count, "error") %> prohibited this sales_quotation from being saved:</h4>
+      <ul>
+        <% @sales_quotation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="d-flex justify-content-center mt-4">
+    <h2>販売見積</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <%= form_with model: @sales_quotation do |form| %>
+        <div class="form-group">
+          <%= form.label :quotation_number, "見積番号" %>
+          <%= form.text_field :quotation_number, class: "form-control", disabled: true %>
+    
+          <%= form.label :customer_id, "顧客名" %>
+          <div data-controller="sales_quotation">
+          <%= form.select :customer_id, options_for_select(@customers), { include_blank: '選択してください' }, class: "form-control", data: { action: "change->sales-quotation#fetchRepresentatives" } %>
+        
+          <%= form.label :representative_id, "部署名 - 担当者名" %>
+          <%= turbo_frame_tag "representative_options" do %>
+            <%= form.select :representative_id, options_for_select(@representatives), { include_blank: '-' }, class: "form-control", data: { target: "sales-quotation.representativeSelect" } %>
+          <% end %>
+        </div>
+    </div>
+
+
+          <%= form.label :delivery_place, "納入場所" %>
+          <%= form.text_field :delivery_place, class: "form-control" %>
+
+          <%= form.label :request_date, "見積依頼日" %>
+          <%= form.date_field :request_date, class: "form-control" %>
+
+          <%= form.label :quotation_date, "見積作成日" %>
+          <%= form.date_field :quotation_date, class: "form-control" %>
+
+          <%= form.label :quotation_due_date, "見積有効期限" %>
+          <%= form.date_field :quotation_due_date, class: "form-control" %>
+
+          <%= form.label :delivery_date, "納入日" %>
+          <%= form.date_field :delivery_date, class: "form-control" %>
+  </div>
+  
+    <table class="table table-bordered mt-4">
+    <thead>
+      <tr>
+        <th class="col-2">カテゴリ</th>
+        <th class="col-2">品名</th>
+        <th class="col-2">数量</th>
+        <th class="col-1">単位</th>
+        <th class="col-2">単価</th>
+        <th class="col-2">金額</th>
+        <th class="col-2">備考</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= form.fields_for :sales_quotation_items do |item_fields| %>
+        <%= render 'sales_quotation_item_fields', f: item_fields %>
+      <% end %>
+      <button type="button" id="addRows" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus"></i> 行を追加
+      </button>
+
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= form.submit "作成", class: "btn btn-primary" %>
+  </div>
+<% end %>
+<%= javascript_include_tag 'sales_quotation' %>
