@@ -11,6 +11,17 @@ class SalesQuotation < ApplicationRecord
   validates :customer_id, :user_id, :request_date, :quotation_date, :quotation_due_date, presence: true
   validate :quotation_due_date_after_quotation_date
 
+  def generate_new_quotation_number
+    date_prefix = Date.today.strftime('S%Y%m%d-')
+    last_quotation = SalesQuotation.where('quotation_number LIKE ?', "#{date_prefix}%").order(:quotation_number).last
+    if last_quotation.nil?
+      "#{date_prefix}001"
+    else
+      number = last_quotation.quotation_number.split('-').last.to_i
+      "#{date_prefix}#{sprintf('%03d', number + 1)}"
+    end
+  end
+
   private
 
   def quotation_due_date_after_quotation_date
