@@ -47,33 +47,33 @@
 
           <%= form.label :delivery_date, "納入日" %>
           <%= form.date_field :delivery_date, class: "form-control" %>
+
+          <%= form.label :delivery_date, "取引条件" %>
+          <%= form.text_field :trading_conditions, class: "form-control" %>
   </div>
   
     <table class="table table-bordered mt-4">
-    <thead>
       <tr>
-        <th class="col-2">カテゴリ</th>
-        <th class="col-2">品名</th>
-        <th class="col-2">数量</th>
-        <th class="col-1">単位</th>
-        <th class="col-2">単価</th>
-        <th class="col-2">金額</th>
-        <th class="col-2">備考</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= form.fields_for :sales_quotation_items do |item_fields| %>
-        <%= render 'sales_quotation_item_fields', f: item_fields %>
-      <% end %>
-      <button type="button" id="addRows" class="btn btn-primary btn-sm">
-        <i class="fas fa-plus"></i> 行を追加
-      </button>
+    <th class="col-2"><%= form.label :category_id, "カテゴリ" %></th>
+    <th class="col-2"><%= form.label :item_name, "品名" %></th>
+    <th class="col-2"><%= form.label :quantity, "数量" %></th>
+    <th class="col-1"><%= form.label :unit_id, "単位" %></th>
+    <th class="col-2"><%= form.label :unit_price, "単価" %></th>
+    <th class="col-2"><%= form.label :amount, "金額" %></th>
+    <th class="col-2"><%= form.label :note, "備考" %></th>
+  </tr>
+  <%= form.fields_for :sales_quotation_items do |item_fields| %>
+    <%= render 'sales_quotation_item_fields', f: item_fields %>
+  <% end %>
+  <button type="button" id="addRows" class="btn btn-primary btn-sm">
+    <i class="fas fa-plus"></i> 行を追加
+  </button>
+</table>
 
-    </tbody>
-  </table>
 
   <div class="d-flex justify-content-center mt-4">
     <%= form.submit "作成", class: "btn btn-primary" %>
   </div>
 <% end %>
 <%= javascript_include_tag 'sales_quotation' %>
+

@@ -19,10 +19,7 @@
   text-align: right;
 }
 
-/* アイテムフィールドのスタイル調整 */
-.table .col-1, .table .col-2 {
-  width: 14.28%; /* 100% ÷ 7（7列） = 14.28% */
-}
+
 
 /* 入力フィールドの横幅をセルの幅に合わせる */
 .form-control {
@@ -43,4 +40,3 @@ select.form-control {
 select.form-control > option {
   padding: 5px 10px;
 }
-
