@@ -1,0 +1,10 @@
+{
+  "imports": {
+    "application": "/assets/application.js",
+    "@hotwired/turbo-rails": "/assets/turbo.js",
+    "stimulus": "/assets/stimulus.js",
+    "controllers/sales_quotation_controller": "/assets/controllers/sales_quotation_controller.js",
+    "controllers/amount_controller": "/assets/controllers/amount_controller.js",
+    "controllers/hello_controller": "/assets/controllers/hello_controller.js"
+  }
+}
