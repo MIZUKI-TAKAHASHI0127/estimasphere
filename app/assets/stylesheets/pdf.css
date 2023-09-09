@@ -80,10 +80,6 @@ td:nth-child(7) /* 備考の値 */
     width: 20% !important; 
 }
 
-.download-button {
-  display: none !important;
-}
-
 /* BootstrapのGridシステムの模倣 */
 .pdf-container-fluid {
   width: 100% !important;
@@ -150,3 +146,5 @@ td:nth-child(7) /* 備考の値 */
 .font-weight-bold {
   font-weight: bold !important;
 }
+
+

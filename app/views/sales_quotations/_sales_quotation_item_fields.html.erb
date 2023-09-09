@@ -1,4 +1,4 @@
-<table class="table table-bordered">
+
 <tr class="nested-fields" data-controller="amount">
     <td class="col-2">
       <%= f.select :category_id, [['', '']] + Category.all.map { |c| [c.category_name, c.id] }, {}, class: "form-control" %>
@@ -17,4 +17,3 @@
     <td class="col-2"><%= content_tag :span, "", class: "amount" %></td>
     <td class="col-2"><%= f.text_field :note, class: "form-control" %></td>
   </tr>
-</table>

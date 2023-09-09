@@ -21,17 +21,10 @@
         <div class="form-group">
           <%= form.label :quotation_number, "見積番号" %>
           <%= form.text_field :quotation_number, class: "form-control", disabled: true %>
-
-          <div data-controller="sales_quotation">
-            <%= form.label :customer_id, "顧客名" %>
-            <%= form.select :customer_id, options_for_select(@customers), { include_blank: '選択してください' }, class: "form-control", data: { action: "change->sales-quotation#fetchRepresentatives" } %>
-            
-            <%= form.label :representative_id, "部署名 - 担当者名" %>
-            <%= turbo_frame_tag "representative_options" do %>
-              <%= form.select :representative_id, options_for_select(@representatives), { include_blank: '-' }, class: "form-control", data: { target: "sales-quotation.representativeSelect" } %>
-            <% end %>
-          </div>
-
+          <%= form.label :customer_id, "顧客名" %>
+          <%= form.collection_select :customer_id, Customer.all, :id, :customer_name, { include_blank: '選択してください' }, class: "form-control", selected: @sales_quotation.customer_id %>
+          <%= form.label :representative_id, "部署名 - 担当者名" %>
+          <%= form.select :representative_id, options_for_select(@representatives, @sales_quotation.representative_id), { include_blank: '-' }, class: "form-control", data: { target: "sales-quotation.representativeSelect" } %>
           <%= form.label :delivery_place, "納入場所" %>
           <%= form.text_field :delivery_place, class: "form-control" %>
           <%= form.label :request_date, "見積依頼日" %>
@@ -46,7 +39,7 @@
           <%= form.text_field :trading_conditions, class: "form-control" %>
         </div>
 
-        <table class="table table-bordered mt-4">
+        <table class="table table-bordered mt-4" data-action-type="edit">
           <thead>
             <tr>
               <th class="col-2">カテゴリ</th>
@@ -59,8 +52,10 @@
             </tr>
           </thead>
           <tbody>
-            <%= form.fields_for :sales_quotation_items do |item_fields| %>
-              <%= render 'sales_quotation_item_fields', f: item_fields %>
+            <% @sales_quotation_items.each do |item| %>
+              <%= form.fields_for :sales_quotation_items, item do |item_fields| %>
+                <%= render 'sales_quotation_item_fields', f: item_fields %>
+              <% end %>
             <% end %>
           </tbody>
         </table>
@@ -69,10 +64,15 @@
           <i class="fas fa-plus"></i> 行を追加
         </button>
 
+
         <div class="d-flex justify-content-center mt-4">
           <%= form.submit "作成", class: "btn btn-primary" %>
         </div>
-      <% end %>
+
+      <% end %> 
     </div>
-     <%= javascript_include_tag 'sales_quotation' %>
   </div>
+
+  <%= javascript_include_tag 'sales_quotation' %>
+
+</div>
