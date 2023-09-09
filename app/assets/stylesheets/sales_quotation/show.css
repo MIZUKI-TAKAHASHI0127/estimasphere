@@ -89,4 +89,7 @@ td:nth-child(7) /* 備考の値 */
   .download-button {
     display: none;
   }
+  .requote-button {
+    display: none;
+  }
 }

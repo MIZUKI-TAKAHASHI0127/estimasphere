@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     end
   end  
   
-  resources :sales_quotations, only: [:new, :create, :index, :show] do
+  resources :sales_quotations, only: [:new, :create, :index, :show, :edit, :update] do
     collection do
       get :search_customer
       get :new_item

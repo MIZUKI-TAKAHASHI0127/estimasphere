@@ -84,7 +84,7 @@ class SalesQuotationsController < ApplicationController
                template: "sales_quotations/show",
                encoding: "UTF-8",
                font_name: "IPAexMincho",
-               formats: [:html],
+               formats: [:pdf],
                layout: 'pdf',
                disposition: 'attachment' # ブラウザでPDFを開くのではなく、ダウンロードさせる
       end
@@ -92,32 +92,44 @@ class SalesQuotationsController < ApplicationController
   end
 
   def edit
+    puts "Edit action is being called"
+    @sales_quotation = SalesQuotation.find(params[:id])
+    @sales_quotation_items = @sales_quotation.sales_quotation_items
+    
+    # 既存のアイテム数に基づいて追加の行を作成
+    additional_rows = 20 - @sales_quotation_items.size
+    additional_rows.times { @sales_quotation.sales_quotation_items.build } if additional_rows > 0
+  
+    @customers = Customer.all.pluck(:customer_name, :id)
+    @representatives = Representative.all.map { |r| [r.department_name + ' - ' + r.representative_name, r.id] }
   end
-
+  
   def update
+    @sales_quotation = SalesQuotation.find(params[:id])
+  
     if @sales_quotation.update(sales_quotation_params)
-      redirect_to @sales_quotation, notice: '見積書を更新しました。'
+      # 新しい見積番号を生成
+      new_quotation = @sales_quotation.dup
+      new_quotation.quotation_number = generate_new_quotation_number
+  
+      # customer_id、representative_id、その他の属性を設定
+      new_quotation.customer_id = params[:sales_quotation][:customer_id]
+      new_quotation.representative_id = params[:sales_quotation][:representative_id]
+
+      if new_quotation.save
+        redirect_to sales_quotation_path(@sales_quotation), notice: 'Sales quotation was successfully created and preview is ready.'
+      else
+        puts new_quotation.errors.full_messages # この行を追加
+        @representatives = Representative.all.map { |r| [r.department_name + ' - ' + r.representative_name, r.id] }
+        @sales_quotation_items = @sales_quotation.sales_quotation_items
+        flash.now[:alert] = '新しい見積の作成に失敗しました。'
+        render :edit
+      end
     else
       render :edit
     end
   end
-
   
-  def requote
-    original_quotation = SalesQuotation.find(params[:id])
-    new_quotation = original_quotation.dup
-    new_quotation.quotation_number = generate_new_quotation_number # ここで新規見積番号を生成
-    original_quotation.sales_quotation_items.each do |item|
-      new_quotation.sales_quotation_items.build(item.attributes.except("id", "created_at", "updated_at", "quotation_id"))
-    end
-    if new_quotation.save
-      redirect_to new_quotation, notice: '新しい見積書を作成しました。'
-    else
-      @sales_quotation = original_quotation
-      flash.now[:alert] = '新しい見積書の作成に失敗しました。'
-      render :show
-    end
-  end
 
   def new_item
     @sales_quotation = SalesQuotation.new
