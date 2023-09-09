@@ -35,4 +35,5 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log('すべての行が表示されました');
     }
   });
+  addRowsButton.click();
 });

@@ -2,111 +2,33 @@ body {
   font-family: 'IPAexMincho', sans-serif !important;
 }
 
-.pdf-quotation-wrapper {
-  border: none !important;
-  padding: 0 !important;
-  box-shadow: none !important;
-  width: auto !important;
-  margin: 0 !important;
-}
-
-h1 {
-  font-size: 2.5em !important;
-}
-
-p {
-  margin-bottom: 5px !important;
-}
-
-tfoot {
-  font-size: 1.2em !important;
-}
-
-.page-break {
-  page-break-after: always !important;
-}
-
-/* テーブルのスタイル調整 */
-th {
-  vertical-align: middle !important;
-  text-align: center !important;
-}
-
-td:nth-child(1), /* No. */
-td:nth-child(3), /* 数量 */
-td:nth-child(5), /* 単価 */
-td:nth-child(6)  /* 金額 */
-{
-  text-align: right !important;
-}
-
-th:nth-child(1) {
-  width: 5% !important; /* No.のセルの幅 */
-}
-
-th:nth-child(2), /* 品名 */
-td:nth-child(2) /* 品名の値 */
-{
-    width: 25% !important; 
-}
-
-th:nth-child(3), /* 数量 */
-td:nth-child(3) /* 数量の値 */
-{
-    width: 10% !important; 
-}
-
-th:nth-child(4), /* 単位 */
-td:nth-child(4) /* 単位の値 */
-{
-    width: 8% !important; 
-}
-
-th:nth-child(5), /* 単価 */
-td:nth-child(5) /* 単価の値 */
-{
-    width: 12% !important; 
-}
-
-th:nth-child(6), /* 金額 */
-td:nth-child(6) /* 金額の値 */
-{
-    width: 18% !important; 
-}
-
-th:nth-child(7), /* 備考 */
-td:nth-child(7) /* 備考の値 */
-{
-    width: 20% !important; 
-}
-
-/* BootstrapのGridシステムの模倣 */
-.pdf-container-fluid {
-  width: 100% !important;
+/* Bootstrap Grid の上書き */
+.container-fluid {
   padding-right: 15px !important;
   padding-left: 15px !important;
-  margin-right: auto !important;
-  margin-left: auto !important;
+  width: 100% !important;
 }
 
-.pdf-row {
+.row {
   margin-right: -15px !important;
   margin-left: -15px !important;
 }
 
-.pdf-col-md-6 {
-  width: 50% !important;
+/* floatを使用してレイアウト */
+.col-md-6 {
   float: left !important;
+  width: 50% !important;
+  position: relative !important;
   padding-right: 15px !important;
   padding-left: 15px !important;
-  box-sizing: border-box !important;
+  box-sizing: border-box;
 }
 
-.pdf-text-center {
+.text-center {
   text-align: center !important;
 }
 
-.pdf-text-right {
+.text-right {
   text-align: right !important;
 }
 
@@ -126,25 +48,26 @@ td:nth-child(7) /* 備考の値 */
   border-radius: 0.25rem !important;
 }
 
-.pdf-table {
+.table {
   width: 100% !important;
   margin-bottom: 1rem !important;
   border-collapse: collapse !important;
 }
 
-.pdf-table th,
-.pdf-table td {
+.table th,
+.table td {
   border: 1px solid #dee2e6 !important;
   padding: 0.75rem !important;
   vertical-align: top !important;
-}
-
-.table-bordered {
-  border: 1px solid #dee2e6 !important;
 }
 
 .font-weight-bold {
   font-weight: bold !important;
 }
 
-
+/* floatを解除するためのヘルパー */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}

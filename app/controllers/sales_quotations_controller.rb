@@ -106,11 +106,12 @@ class SalesQuotationsController < ApplicationController
   
   def update
     @sales_quotation = SalesQuotation.find(params[:id])
-  
+
     if @sales_quotation.update(sales_quotation_params)
       # 新しい見積番号を生成
       new_quotation = @sales_quotation.dup
       new_quotation.quotation_number = generate_new_quotation_number
+      new_quotation.sales_quotation_items = @sales_quotation.sales_quotation_items.map(&:dup)
   
       # customer_id、representative_id、その他の属性を設定
       new_quotation.customer_id = params[:sales_quotation][:customer_id]
