@@ -1,11 +1,11 @@
 <div class="pdf-quotation-wrapper">
 <div class="text-center">
-    <h1>販売見積書</h1>
+    <h1>仕入見積書</h1>
 </div>
 <div class="container-fluid">
-    <div class="row clearfix mb-5 p-3 rounded">
+    <div class="row mb-5 p-3 rounded">
         <div class="col-md-6">
-            <% representative = @sales_quotation.representative %>
+            <% representative = @purchase_quotation.representative %>
             <h2>
                 <%= @customer.customer_name %>
             </h2>
@@ -21,16 +21,16 @@
             </h4>
         </div>
         <div class="col-md-6 text-right">
-            <p>見 積 日: <%= @sales_quotation.quotation_date.strftime("%Y年%m月%d日") %></p>
-            <p>見積番号: <%= @sales_quotation.quotation_number %></p>
+            <p>見 積 日: <%= @purchase_quotation.quotation_date.strftime("%Y年%m月%d日") %></p>
+            <p>見積番号: <%= @purchase_quotation.quotation_number %></p>
         </div>
     </div>
-    <div class="row clearfix mb-4">
+    <div class="row mb-4">
         <div class="col-md-6">
-            <p>有効期限: <%= @sales_quotation.quotation_due_date.strftime("%Y年%m月%d日") %></p>
-            <p>納入場所: <%= @sales_quotation.delivery_place %></p>
-            <p>納 入 日: <%= @sales_quotation.delivery_date.strftime("%Y年%m月%d日") %></p>
-            <p>取引条件: <%= @sales_quotation.trading_conditions %></p>
+            <p>有効期限: <%= @purchase_quotation.quotation_due_date.strftime("%Y年%m月%d日") %></p>
+            <p>受渡場所: <%= @purchase_quotation.handover_place %></p>
+            <p>受 渡 日: <%= @purchase_quotation.delivery_date.strftime("%Y年%m月%d日") %></p>
+            <p>取引条件: <%= @purchase_quotation.trading_conditions %></p>
         </div>
     
         <div class="col-md-6 text-right">
@@ -41,7 +41,7 @@
             <p>担当: <%= @user.last_name %> <%= @user.first_name %></p>
         </div>
     </div>    
-    <div class="row clearfix">
+    <div class="row">
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -55,7 +55,7 @@
                 </tr>
             </thead>
             <tbody>
-                <% @sales_quotation.sales_quotation_items.each_with_index do |item, index| %>
+                <% @purchase_quotation.purchase_quotation_items.each_with_index do |item, index| %>
                 <tr>
                     <td><%= index + 1 %></td>
                     <td><%= item.item_name %></td>
@@ -71,7 +71,7 @@
                 <tr>
                     <td colspan="5" class="text-right font-weight-bold">合計金額:</td>
                     <td colspan="2" class="font-weight-bold ">
-                        <%= number_with_delimiter(@sales_quotation.sales_quotation_items.sum { |item| item.quantity * item.unit_price }) %>円
+                        <%= number_with_delimiter(@purchase_quotation.purchase_quotation_items.sum { |item| item.quantity * item.unit_price }) %>円
                     </td>
                 </tr>
             </tfoot>

@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "representative_options" do %>
+  <% representatives.each do |rep| %>
+    <option value="<%= rep.id %>"><%= rep.department_name %> - <%= rep.representative_name %></option>
+  <% end %>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_21_115943) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_03_201944) do
   create_table "categories", charset: "utf8", force: :cascade do |t|
     t.string "category_name", null: false
     t.datetime "created_at", null: false
@@ -36,6 +36,40 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_115943) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_code"], name: "index_customers_on_customer_code", unique: true
+  end
+
+  create_table "purchase_quotation_items", charset: "utf8", force: :cascade do |t|
+    t.bigint "purchase_quotation_id", null: false
+    t.string "item_name", null: false
+    t.integer "quantity", null: false
+    t.bigint "category_id", null: false
+    t.bigint "unit_id", null: false
+    t.integer "unit_price", null: false
+    t.string "note"
+    t.string "result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_purchase_quotation_items_on_category_id"
+    t.index ["unit_id"], name: "index_purchase_quotation_items_on_unit_id"
+  end
+
+  create_table "purchase_quotations", charset: "utf8", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "user_id", null: false
+    t.string "quotation_number", null: false
+    t.date "request_date", null: false
+    t.date "quotation_date", null: false
+    t.date "quotation_due_date", null: false
+    t.date "delivery_date", null: false
+    t.string "handover_place"
+    t.string "trading_conditions"
+    t.integer "representative_id"
+    t.string "result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_purchase_quotations_on_customer_id"
+    t.index ["quotation_number"], name: "index_purchase_quotations_on_quotation_number", unique: true
+    t.index ["user_id"], name: "index_purchase_quotations_on_user_id"
   end
 
   create_table "representatives", charset: "utf8", force: :cascade do |t|
@@ -74,9 +108,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_115943) do
     t.date "delivery_date", null: false
     t.string "delivery_place"
     t.string "trading_conditions"
+    t.integer "representative_id"
+    t.string "result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "representative_id"
     t.index ["customer_id"], name: "index_sales_quotations_on_customer_id"
     t.index ["quotation_number"], name: "index_sales_quotations_on_quotation_number", unique: true
     t.index ["user_id"], name: "index_sales_quotations_on_user_id"
@@ -103,6 +138,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_115943) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "purchase_quotation_items", "categories"
+  add_foreign_key "purchase_quotation_items", "units"
+  add_foreign_key "purchase_quotations", "customers"
+  add_foreign_key "purchase_quotations", "users"
   add_foreign_key "representatives", "customers"
   add_foreign_key "sales_quotation_items", "categories"
   add_foreign_key "sales_quotation_items", "units"
