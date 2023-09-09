@@ -11,6 +11,6 @@
 WickedPdf.config = {
   exe_path: "#{Gem.loaded_specs['wkhtmltopdf-binary-edge'].full_gem_path}/bin/wkhtmltopdf",
   dpi: '300',
-  default_font: 'IPAexMincho'
-  zoom: '1.3',
+  default_font: 'IPAexMincho',
+  zoom: '1.3'
 }
