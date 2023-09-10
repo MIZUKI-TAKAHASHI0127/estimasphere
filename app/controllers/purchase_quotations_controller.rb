@@ -91,6 +91,27 @@ class PurchaseQuotationsController < ApplicationController
     end
   end
 
+  def requote
+    # 元の見積を探す
+    original_quotation = PurchaseQuotation.find(params[:id])
+    
+    # 新しい見積オブジェクトを作成し、内容をコピー
+    new_quotation = original_quotation.dup
+    new_quotation.quotation_number = generate_new_quotation_number
+    new_quotation.purchase_quotation_items = original_quotation.purchase_quotation_items.map(&:dup)
+    
+    # 新しい見積を保存
+    if new_quotation.save
+      # 成功した場合、新しい見積の編集ページにリダイレクト
+      redirect_to edit_purchase_quotation_path(new_quotation), notice: '再見積が正常に作成されました。内容を編集してください。'
+    else
+      # 失敗した場合、エラーメッセージを表示して元のページに戻る
+      flash[:alert] = '再見積の作成に失敗しました。'
+      redirect_back(fallback_location: purchase_quotations_path)
+    end
+  end
+  
+
   def edit
     puts "Edit action is being called"
     @purchase_quotation = PurchaseQuotation.find(params[:id])

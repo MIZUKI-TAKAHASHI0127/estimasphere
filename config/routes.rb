@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     end
     member do
       get :generate_pdf
+      get :requote
     end
   end
 
@@ -48,6 +49,7 @@ Rails.application.routes.draw do
     end
     member do
       get :generate_pdf
+      get :requote
     end
   end
   
