@@ -99,24 +99,25 @@ class SalesQuotationsController < ApplicationController
     # 新しい見積オブジェクトを作成し、内容をコピー
     new_quotation = original_quotation.dup
     new_quotation.quotation_number = generate_new_quotation_number
-    new_quotation.sales_quotation_items = original_quotation.sales_quotation_items.map(&:dup)
     
-    # 新しい見積を保存
     if new_quotation.save
-      # 成功した場合、新しい見積の編集ページにリダイレクト
-      redirect_to edit_sales_quotation_path(new_quotation), notice: '再見積が正常に作成されました。内容を編集してください。'
+        # 見積アイテムをコピー
+        original_quotation.sales_quotation_items.each do |item|
+            copied_item = item.dup
+            copied_item.sales_quotation_id = new_quotation.id
+            copied_item.save
+        end
+        
+        # 成功した場合、新しい見積の編集ページにリダイレクト
+        redirect_to edit_sales_quotation_path(new_quotation), notice: '再見積が正常に作成されました。内容を編集してください。'
     else
-      # 失敗した場合、エラーメッセージを表示して元のページに戻る
-      flash[:alert] = '再見積の作成に失敗しました。'
-      redirect_back(fallback_location: sales_quotations_path)
+        # 失敗した場合、エラーメッセージを表示して元のページに戻る
+        flash[:alert] = '再見積の作成に失敗しました。'
+        redirect_back(fallback_location: sales_quotations_path)
     end
-  end
+end
   
-  
-  
-
   def edit
-    puts "Edit action is being called"
     @sales_quotation = SalesQuotation.find(params[:id])
     @sales_quotation_items = @sales_quotation.sales_quotation_items
     
@@ -132,39 +133,15 @@ class SalesQuotationsController < ApplicationController
     @sales_quotation = SalesQuotation.find(params[:id])
   
     if @sales_quotation.update(sales_quotation_params)
-      # 新しい見積書を作成
-      new_quotation = @sales_quotation.dup
-      new_quotation.quotation_number = nil # 一時的に見積番号をリセット
-      new_quotation.sales_quotation_items = @sales_quotation.sales_quotation_items.map(&:dup)
-  
-      # customer_id、representative_id、その他の属性を設定
-      new_quotation.customer_id = params[:sales_quotation][:customer_id]
-      new_quotation.representative_id = params[:sales_quotation][:representative_id]
-  
-      # 新しい見積番号を生成
-      new_quotation.quotation_number = generate_new_quotation_number
-  
-      if new_quotation.save
-        redirect_to sales_quotation_path(@sales_quotation), notice: 'sales quotation was successfully created and show is ready.'
-      else
-        puts new_quotation.errors.full_messages
-        new_quotation.sales_quotation_items.each do |item|
-          puts item.errors.full_messages
-        end
+        redirect_to sales_quotation_path(@sales_quotation), notice: 'sales quotation was successfully updated.'
+    else
         @representatives = Representative.all.map { |r| [r.department_name + ' - ' + r.representative_name, r.id] }
         @sales_quotation_items = @sales_quotation.sales_quotation_items
-        flash.now[:alert] = '新しい見積の作成に失敗しました。'
+        flash.now[:alert] = '見積の更新に失敗しました。'
         render :edit
-      end
-    else
-      @representatives = Representative.all.map { |r| [r.department_name + ' - ' + r.representative_name, r.id] }
-      @sales_quotation_items = @sales_quotation.sales_quotation_items # この行を追加
-      render :edit
     end
   end
-  
-  
-  
+
 
   def new_item
     @sales_quotation = SalesQuotation.new
