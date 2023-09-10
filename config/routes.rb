@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     
     collection do
       get :find
+      get :search
     end
     member do
       get 'new_representative', to: 'customers#new_representative'

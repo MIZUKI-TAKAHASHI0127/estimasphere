@@ -70,22 +70,14 @@ class CustomersController < ApplicationController
   def representatives
     @customer = Customer.find(params[:id])
     @representatives = @customer.representatives
-  
-    respond_to do |format|
-      format.json { render json: @representatives }
-    end
+    render json: @representatives
   end
 
-  def search_by_id
-    customer = Customer.find_by(id: params[:id])
-    if customer
-        render json: { customer_name: customer.customer_name }
-    else
-        render json: {}, status: 404
-    end
+  def search
+    @customers = Customer.where("name LIKE ?", "%#{params[:q]}%")
+    render json: { items: @customers.map { |c| { id: c.id, text: c.name } } }
   end
  
-  
 
   private
 

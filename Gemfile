@@ -90,3 +90,7 @@ gem 'turbo-rails'
 
 gem 'prawn'
 gem 'prawn-table'
+
+gem 'select2-rails'
+
+gem 'rack-cors'
