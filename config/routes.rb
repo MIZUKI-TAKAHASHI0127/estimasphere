@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       get :representative_options
     end
     member do
-      get :preview
+      get :generate_pdf
     end
   end
 
@@ -44,6 +44,9 @@ Rails.application.routes.draw do
       get :search_customer
       get :new_item
       get :representative_options
+    end
+    member do
+      get :generate_pdf
     end
   end
   

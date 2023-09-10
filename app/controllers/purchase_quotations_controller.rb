@@ -142,6 +142,114 @@ class PurchaseQuotationsController < ApplicationController
     render partial: 'purchase_quotation_item_fields', locals: { f: @purchase_quotation.purchase_quotation_items.last }
   end
 
+  def generate_pdf
+    @purchase_quotation = PurchaseQuotation.find(params[:id])
+    @customer = @purchase_quotation.customer
+    @company_info = CompanyInfo.first
+    @user = @purchase_quotation.user
+  
+    require 'prawn'
+    require 'prawn/table'
+  
+    Prawn::Document.generate('purchase_quotation.pdf', page_layout: :landscape) do |pdf|
+      # フォントを設定
+      pdf.font_families.update("NotoSansJP" => {
+        normal: Rails.root.join('app/assets/fonts/NotoSansJP-Regular.ttf')
+      })
+  
+      # NotoSansJP フォントを使用
+      pdf.font("NotoSansJP")
+  
+      # タイトル部分
+      pdf.text "仕入見積書", size: 35, align: :center
+      pdf.move_down 30
+  
+  
+      # 顧客情報部分
+      representative = @purchase_quotation.representative
+      customer_info = @customer.customer_name
+
+      if representative.representative_name.present?
+        customer_info += "\n#{representative.department_name}" if representative.department_name.present?
+        customer_info += "\n#{representative.representative_name} 様"
+      else
+        customer_info += "\n#{representative.department_name} 御中" if representative.department_name.present?
+      end
+
+  
+      quotation_date = @purchase_quotation.quotation_date.strftime("%Y年%m月%d日")
+      quotation_number = @purchase_quotation.quotation_number
+  
+      data = [[customer_info, "見 積 日: #{quotation_date}\n見積番号: #{quotation_number}"]]
+  
+      #pdf.table(data, column_widths: [345, 345], cell_style: { borders: [] })
+      pdf.table(data, cell_style: { borders: [] }) do |t|
+        # 左列のデータを左端に配置
+        t.columns(0).style(align: :left)
+        # 右列のデータを右端に配置 & 左側のパディングを増やしてデータをさらに右に寄せる
+        t.columns(1).style(align: :right, padding_left: 180)
+      end
+
+      pdf.move_down 40
+  
+      # 会社情報
+      company_info = @company_info&.company_name || "未登録"
+      company_address = @company_info&.address || "未登録"
+      phone_number = @company_info&.phone_number || "未登録"
+      fax_number = @company_info&.fax_number || "未登録"
+      user_name = "#{@user.last_name} #{@user.first_name}"
+  
+      data = [
+        ["", "会社名: #{company_info}"],
+        ["有効期限: #{@purchase_quotation.quotation_due_date.strftime("%Y年%m月%d日")}", "住所: #{company_address}"],
+        ["受渡場所: #{@purchase_quotation.handover_place}", "電話番号: #{phone_number}"],
+        ["受 渡 日: #{@purchase_quotation.delivery_date.strftime("%Y年%m月%d日")}", "FAX番号: #{fax_number}"],
+        ["取引条件: #{@purchase_quotation.trading_conditions}", "担当: #{user_name}"]
+      ]
+      
+      pdf.table(data, cell_style: { borders: [] }) do |t|
+        # 左列のデータを左端に配置
+        t.columns(0).style(align: :left)
+        # 右列のデータを右端に配置 & 左側のパディングを増やしてデータをさらに右に寄せる
+        t.columns(1).style(align: :right, padding_left: 270)
+      end
+      #pdf.table(data, column_widths: [345, 345], cell_style: { borders: [] })
+
+      pdf.move_down 40
+  
+      # 商品一覧テーブル
+      items_data = [["No.", "品名", "数量", "単位", "単価", "金額", "備考"]]
+      @purchase_quotation.purchase_quotation_items.each_with_index do |item, index|
+        items_data << [
+          index + 1,
+          item.item_name,
+          item.quantity,
+          item.unit.unit_name,
+          "#{number_with_delimiter(item.unit_price)}円",
+          "#{number_with_delimiter(item.quantity * item.unit_price)}円",
+          item.note
+        ]
+      end
+      total = @purchase_quotation.purchase_quotation_items.sum { |item| item.quantity * item.unit_price }
+      items_data << ["", "", "", "", "合計金額:", "#{number_with_delimiter(total)}円", ""]
+  
+      pdf.table(items_data, header: true, column_widths: {0 => 35, 1 => 160, 2 => 70, 3 => 50, 4 => 100, 5 => 120, 6 => 140}) do |table|
+        table.columns([0,2, 4, 5]).style(align: :right)
+        table.row(0).style(align: :center)
+      end
+  
+      # ページ番号追加
+      pdf.number_pages "<page>/<total>", {start_count_at: 1, page_filter: :all, at: [pdf.bounds.right - 150, 0], align: :right, size: 14}
+  
+      send_data pdf.render, filename: "purchase_quotation_#{params[:id]}.pdf",
+                            type: 'application/pdf',
+                            disposition: 'attachment'
+    end
+  end
+  
+
+  
+
   private
 
   def set_purchase_quotation
@@ -187,4 +295,9 @@ class PurchaseQuotationsController < ApplicationController
       "#{date_prefix}#{sprintf('%03d', number + 1)}"
     end
   end
+
+  def number_with_delimiter(number)
+    number.to_s.gsub(/(\d)(?=(\d{3})+(?!\d))/, '\\1,')
+  end
+  
 end

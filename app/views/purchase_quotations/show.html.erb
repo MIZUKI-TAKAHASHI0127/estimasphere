@@ -1,5 +1,5 @@
 <div class="btn-group" role="group" aria-label="ボタングループ">
-    <%= link_to 'PDFでダウンロード', purchase_quotation_path(@purchase_quotation, format: :pdf), class: 'btn btn-primary download-button' %>
+    <%= link_to 'PDFでダウンロード', generate_pdf_purchase_quotation_path(@purchase_quotation), class: 'btn btn-primary download-button' %>
     <%= link_to '再見積', edit_purchase_quotation_path(@purchase_quotation), class: 'btn btn-success requote-button' %>
 </div>
 
