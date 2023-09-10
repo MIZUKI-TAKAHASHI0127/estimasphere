@@ -51,7 +51,7 @@ document.addEventListener("turbo:load", function() {
             return response.json();
           })
           .then(data => {
-            const repSelect = document.querySelector('#sales_quotation_representative_id');
+            const repSelect = document.querySelector('#purchase_quotation_representative_id');
             console.log(repSelect); // このログを確認してください。
             repSelect.innerHTML = '';
 
@@ -71,7 +71,7 @@ document.addEventListener("turbo:load", function() {
             console.error("There was a problem with the fetch operation:", error.message);
           });
       } else {
-        const repSelect = document.querySelector('#sales_quotation_representative_id');
+        const repSelect = document.querySelector('#purchase_quotation_representative_id');
         repSelect.innerHTML = '';
         repSelect.disabled = true;
       }

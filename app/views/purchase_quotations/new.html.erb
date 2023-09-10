@@ -22,9 +22,9 @@
           <%= form.label :quotation_number, "見積番号" %>
           <%= form.text_field :quotation_number, class: "form-control", disabled: true %>
 
-          <div data-controller="purchase_quotation">
+          <div data-controller="purchase-quotation">
             <%= form.label :customer_id, "顧客名" %>
-            <%= form.select :customer_id, options_for_select(@customers), { include_blank: '選択してください' }, class: "form-control", data: { action: "change->purchase-quotation#fetchRepresentatives" } %>
+            <%= form.select :customer_id, options_for_select(@customers), { include_blank: '選択してください' }, { class: "form-control select2-customer", data: { action: "change->purchase-quotation#fetchRepresentatives" } } %>
             
             <%= form.label :representative_id, "部署名 - 担当者名" %>
             <%= turbo_frame_tag "representative_options" do %>
@@ -74,5 +74,5 @@
         </div>
       <% end %>
     </div>
-     <%= javascript_include_tag 'sales_quotation' %>
+     <%= javascript_include_tag 'purchase_quotation' %>
   </div>

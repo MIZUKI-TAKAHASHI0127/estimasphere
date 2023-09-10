@@ -26,5 +26,13 @@ module Estimasphere
 
     # Add the following line to your config/application.rb
     config.assets.enabled = true #追加
+
+    # Moved inside the Application class
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '/customers/search', headers: :any, methods: [:get]
+      end
+    end
   end
 end

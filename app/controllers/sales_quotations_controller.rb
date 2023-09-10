@@ -254,8 +254,6 @@ class SalesQuotationsController < ApplicationController
   end
   
 
-  
-
   private
 
   def set_sales_quotation
