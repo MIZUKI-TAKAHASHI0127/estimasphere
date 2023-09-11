@@ -51,8 +51,8 @@ https://furima-39216.onrender.com/
 <br>
 2.2 見積もり作成機能
 販売見積もりと仕入れ見積もりの2種類の見積もりを作成できる。
-自動的に見積もり番号を生成できる。仕入見積の形式は「PYYYYMMDD-1」（YYYYは年、MMは月、DDは日、「-1」は連番）。
-自動的に見積もり番号を生成できる。販売見積の形式は「SYYYYMMDD-1」（YYYYは年、MMは月、DDは日、「-1」は連番）。
+自動的に見積もり番号を生成できる。仕入見積の形式は「PYYYYMMDD-001」（YYYYは年、MMは月、DDは日、「-001」は連番）。
+自動的に見積もり番号を生成できる。販売見積の形式は「SYYYYMMDD-001」（YYYYは年、MMは月、DDは日、「-001」は連番）。
 <br>
 2.3 見積もり詳細表示機能
 見積もりの詳細情報を表示できる。
@@ -168,6 +168,7 @@ https://furima-39216.onrender.com/
 | delivery_date       | data    | null: false                    |
 | delivery_place      | string  |                                |
 | trading_conditions  | string  |                                |
+| result              | string  |                                |
 
 #### Association
 
@@ -188,13 +189,13 @@ https://furima-39216.onrender.com/
 | unit_id             | string  | null: false, foreign_key: true |
 | unit_price          | integer | null: false                    |
 | note                | string  |                                |
-
 | result              | string  |                                |
 
 #### Association
 
 - belongs_to :sales_quotation
 - belongs_to :unit
+- belongs_to :category
 
 
 ### purchase_quotations テーブル
@@ -210,7 +211,7 @@ https://furima-39216.onrender.com/
 | delivery_date       | data    | null: false                    |
 | handover_place      | string  |                                |
 | trading_conditions  | string  |                                |
-
+| result              | string  |                                |
 
 #### Association
 
@@ -237,6 +238,7 @@ https://furima-39216.onrender.com/
 
 - belongs_to :purchase_quotation
 - belongs_to :unit
+- belongs_to :category
 
 ### comments テーブル
 
