@@ -100,6 +100,8 @@ class PurchaseQuotationsController < ApplicationController
     new_quotation.quotation_number = generate_new_quotation_number
     
     if new_quotation.save
+
+        session[:allowed_to_edit] = new_quotation.id
         # 見積アイテムをコピー
         original_quotation.purchase_quotation_items.each do |item|
             copied_item = item.dup
@@ -118,6 +120,16 @@ end
   
   def edit
     @purchase_quotation = PurchaseQuotation.find(params[:id])
+
+    unless session[:allowed_to_edit] == @sales_quotation.id
+      flash[:alert] = '再見積を経由してのみ、この見積を編集できます。'
+      redirect_to sales_quotation_path(@sales_quotation)
+      return
+    end
+  
+    # セッションのキーを削除して、次回からのアクセスを制限
+    session.delete(:allowed_to_edit)
+    
     @purchase_quotation_items = @purchase_quotation.purchase_quotation_items
     
     # 既存のアイテム数に基づいて追加の行を作成
