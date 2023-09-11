@@ -1,14 +1,16 @@
-<h3>単位一覧</h3>
 
+<%= link_to(data_registration_estimates_path, class: 'btn btn-success btn-sm') do %>
+  <i class="fas fa-database"></i> 戻る
+<% end %>
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-7"> <!-- col-md-7 gives the table 60% of the width -->
+    <div class="col-md-4">
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <thead class="thead-light">
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">カテゴリー</th>
+              <th scope="col">単位</th>
             </tr>
           </thead>
           <tbody>

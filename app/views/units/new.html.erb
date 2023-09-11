@@ -2,7 +2,8 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <h3 class="mb-4 text-center">単位登録</h3>
-
+       
+ 
       <%= form_with url: units_path, method: :post, local: true do |form| %>
         <div id="units">
           <%= form.fields_for 'units[]', Unit.new do |unit_form| %>
