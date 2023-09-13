@@ -97,7 +97,7 @@ RSpec.describe 'Sales Quotation', type: :model do
       
 
     
-      it '顧客IDが入力されていないと作成できない' do
+      it '顧客が選択されていないと作成できない' do
         sales_quotation = FactoryBot.build(:sales_quotation, customer_id: nil)
         expect(sales_quotation).not_to be_valid
         expect(sales_quotation.errors[:customer_id]).to include("can't be blank")

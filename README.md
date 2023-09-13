@@ -5,6 +5,7 @@ EstimaSphere
 
 ## アプリケーション概要
 EstimaSphereは、ビジネスの見積プロセスを効率化し、正確さを向上させるためのアプリケーションです。<br>
+PCでアプリケーションを使用することを想定して開発を進めました。
 ユーザーは簡単に見積を作成、再見積、追跡でき、クライアントとのコミュニケーションもスムーズに行えます。<br>
 Estima(見積)Sphere(領域/範囲)を組み合わせた名前です。
 
@@ -18,7 +19,7 @@ https://estimasphere.onrender.com
 
 ## テスト用アカウント	
 
-- Basic認証ID ：admin　　
+- Basic認証ID ：admin  
 - Basic認証パスワード ：2222  
 - メールアドレス :red.123@mzk.com
 - パスワード :abcd1234
@@ -36,6 +37,7 @@ https://estimasphere.onrender.com
 3.見積詳細ページへ遷移するので、"PDFをダウンロード"ボタンを押すと作成した見積書をPDF形式でダウンロードできる。<br>
 
 <br>
+
 ### 再見積機能
 
 ***
@@ -48,7 +50,6 @@ https://estimasphere.onrender.com
 
 ## アプリケーションを作成した背景
 
-***
 
 現職での、見積の管理はExcelベースで、ExcelVBAを用いて作成しています。<br>
 ですが、Excelの弱点として、"誰かが開いていると使用できない"，"誤って数式や関数を壊してしまう"などの悩みがありました。<br>
@@ -58,7 +59,6 @@ https://estimasphere.onrender.com
 
 ## 洗い出した要件
 
-***
 
 https://docs.google.com/spreadsheets/d/1KH8jTvII3dGyH9HfbrC_hj9XMQGc_bzCZjA0wFs1ACs/edit?usp=sharing
 
@@ -68,27 +68,26 @@ https://docs.google.com/spreadsheets/d/1KH8jTvII3dGyH9HfbrC_hj9XMQGc_bzCZjA0wFs1
 
 ## 実装した機能についての画像やGIFおよびその説明
 
-***
 
 
 1.トップページ
 ***
-　[![Image from Gyazo](https://i.gyazo.com/e2d17454f2b5c784cda093da9023881c.png)](https://gyazo.com/e2d17454f2b5c784cda093da9023881c)
+ [![Image from Gyazo](https://i.gyazo.com/e2d17454f2b5c784cda093da9023881c.png)](https://gyazo.com/e2d17454f2b5c784cda093da9023881c)
 
 2.基本情報登録機能
 ***
 [![Image from Gyazo](https://i.gyazo.com/c45486bb39868f9d44c56548231eb2c8.png)](https://gyazo.com/c45486bb39868f9d44c56548231eb2c8)
 
 - 自社情報の登録・編集
-　[![Image from Gyazo](https://i.gyazo.com/6dedfd3e56ef44b2f7f05553af9c20e3.png)](https://gyazo.com/6dedfd3e56ef44b2f7f05553af9c20e3)
+ [![Image from Gyazo](https://i.gyazo.com/6dedfd3e56ef44b2f7f05553af9c20e3.png)](https://gyazo.com/6dedfd3e56ef44b2f7f05553af9c20e3)
 
 - 見積カテゴリーの登録
     任意で使用するカテゴリーを自由に登録することができる。
-　[![Image from Gyazo](https://i.gyazo.com/1f25973c5a3e0b96541910c4369b1fe9.png)](https://gyazo.com/1f25973c5a3e0b96541910c4369b1fe9)
-　
+ [![Image from Gyazo](https://i.gyazo.com/1f25973c5a3e0b96541910c4369b1fe9.png)](https://gyazo.com/1f25973c5a3e0b96541910c4369b1fe9)
+ 
 - 単位登録
-　任意で使用する単位(㎡や棹など)を登録することができる。
-　[![Image from Gyazo](https://i.gyazo.com/1d2f998158a4d240e7ddd50fb03b39a6.png)](https://gyazo.com/1d2f998158a4d240e7ddd50fb03b39a6)
+ 任意で使用する単位(㎡や棹など)を登録することができる。
+ [![Image from Gyazo](https://i.gyazo.com/1d2f998158a4d240e7ddd50fb03b39a6.png)](https://gyazo.com/1d2f998158a4d240e7ddd50fb03b39a6)
 
 
 3.顧客情報登録機能
@@ -96,8 +95,8 @@ https://docs.google.com/spreadsheets/d/1KH8jTvII3dGyH9HfbrC_hj9XMQGc_bzCZjA0wFs1
 ***
 
 - 顧客の基本情報(社名・住所・電話番号)と担当者情報(部署・名前・メールアドレス・電話番号)を登録できる。
-　[![Image from Gyazo](https://i.gyazo.com/2c0d46ece6f53ef47e155196be292fd0.gif)](https://gyazo.com/2c0d46ece6f53ef47e155196be292fd0)
-　
+ [![Image from Gyazo](https://i.gyazo.com/2c0d46ece6f53ef47e155196be292fd0.gif)](https://gyazo.com/2c0d46ece6f53ef47e155196be292fd0)
+ 
 - 顧客を一覧表示で確認することができる。
 - 顧客の詳細を確認することができる。
 - 案件ごとに同じ会社でも、担当部署や担当者が変わる場合もあるため、担当者の追加機能。
@@ -111,8 +110,8 @@ https://docs.google.com/spreadsheets/d/1KH8jTvII3dGyH9HfbrC_hj9XMQGc_bzCZjA0wFs1
 
 - 見積のアイテム項目は20点まで同時に見積可能。
 - 自動生成で見積番号を付与。<br>
-　仕入見積の形式は「PYYYYMMDD-001」（YYYYは年、MMは月、DDは日、「-001」は連番）。<br>
-　販売見積の形式は「SYYYYMMDD-001」（YYYYは年、MMは月、DDは日、「-001」は連番）。<br>
+ 仕入見積の形式は「PYYYYMMDD-001」（YYYYは年、MMは月、DDは日、「-001」は連番）。<br>
+ 販売見積の形式は「SYYYYMMDD-001」（YYYYは年、MMは月、DDは日、「-001」は連番）。<br>
 - 作成した見積書はPDF形式でダウンロードできる。
 
 [![Image from Gyazo](https://i.gyazo.com/f26822242875748b68d994c2da2f6538.gif)](https://gyazo.com/f26822242875748b68d994c2da2f6538)
@@ -125,6 +124,17 @@ https://docs.google.com/spreadsheets/d/1KH8jTvII3dGyH9HfbrC_hj9XMQGc_bzCZjA0wFs1
 - 作成後、PDFでダウンロードできる。
 
 [![Image from Gyazo](https://i.gyazo.com/3a07c2f196290eee1c394fecabde0f90.gif)](https://gyazo.com/3a07c2f196290eee1c394fecabde0f90)
+
+6.テスト実行結果
+
+- user
+[![Image from Gyazo](https://i.gyazo.com/3ea9cddc25d4e3b9b2b030c317e174af.png)](https://gyazo.com/3ea9cddc25d4e3b9b2b030c317e174af)
+
+- sales_quotation
+[![Image from Gyazo](https://i.gyazo.com/70a9eb24dfbbecf7d0d018f4f8817e31.png)](https://gyazo.com/70a9eb24dfbbecf7d0d018f4f8817e31)
+
+- purchase_quotation
+[![Image from Gyazo](https://i.gyazo.com/856210fd2a4bcff3b069b63041daf22a.png)](https://gyazo.com/856210fd2a4bcff3b069b63041daf22a)
 
 ## 実装予定の機能	
 
