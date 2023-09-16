@@ -1,3 +1,6 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <div class='title-contents'>
   <nav class="navbar justify-content-between">
     <%= link_to 'EstimaSphere', estimates_path, class: "navbar-brand site-title" %>
@@ -5,9 +8,9 @@
     <ul class='lists-right'>
         <% if user_signed_in? %>
           <li style="margin-right: 10px;"><%= link_to "ようこそ、#{current_user.last_name}さん", "#", class: "user-name" %></li>
-          <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-success my-2 my-sm-0" %></li>
+          <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-light my-2 my-sm-0" %></li>
         <% else %>
-          <li style="margin-right: 10px;"><%= link_to 'ログイン', user_session_path, class: "nav-link btn btn-outline-success my-2 my-sm-0" %></li>
+          <li style="margin-right: 10px;"><%= link_to 'ログイン', user_session_path, class: "nav-link btn btn-primary my-2 my-sm-0" %></li>
           <li><%= link_to '新規登録', new_user_registration_path, class: "btn btn-outline-success my-2 my-sm-0" %></li>
         <% end %>
       </ul>

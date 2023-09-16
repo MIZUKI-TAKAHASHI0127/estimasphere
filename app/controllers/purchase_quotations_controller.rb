@@ -121,9 +121,9 @@ end
   def edit
     @purchase_quotation = PurchaseQuotation.find(params[:id])
 
-    unless session[:allowed_to_edit] == @sales_quotation.id
+    unless session[:allowed_to_edit] == @purchase_quotation.id
       flash[:alert] = '再見積を経由してのみ、この見積を編集できます。'
-      redirect_to sales_quotation_path(@sales_quotation)
+      redirect_to purchase_quotation_path(@purchase_quotation)
       return
     end
   

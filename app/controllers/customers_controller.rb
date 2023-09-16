@@ -51,18 +51,23 @@ class CustomersController < ApplicationController
   end
 
   def new_representative
-    @customer = Customer.find(params[:id])
-    @representative = Representative.new
-    render layout: false
+    @customer = Customer.find(params[:customer_id])
+    @representative = @customer.representatives.build
+  
+    respond_to do |format|
+      format.js
+    end
   end
+  
 
   def create_representative
     @customer = Customer.find(params[:id])
     @representative = @customer.representatives.build(representative_params)
-
+    binding.pry
     if @representative.save
      redirect_to customers_path, notice: '担当者が正常に作成されました。'
     else
+      flash.now[:error] = @representative.errors.full_messages.join(", ")
       render :new_representative
     end
   end
@@ -73,6 +78,7 @@ class CustomersController < ApplicationController
     render json: @representatives
   end
 
+  
   def search
     @customers = Customer.where("name LIKE ?", "%#{params[:q]}%")
     render json: { items: @customers.map { |c| { id: c.id, text: c.name } } }

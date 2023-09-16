@@ -1,13 +1,12 @@
 class SalesQuotationsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
-  before_action :set_sales_quotation, only: [:show]
+  before_action :set_sales_quotation, only: [:show, :edit, :update, :generate_pdf]
+  before_action :set_select_collections, only: [:new, :edit]
 
   
 
   def new
     @sales_quotation = SalesQuotation.new
-    @customers = Customer.all.pluck(:customer_name, :id)
-    @representatives = Representative.all.map { |r| [r.department_name + ' - ' + r.representative_name, r.id] }
     20.times { @sales_quotation.sales_quotation_items.build } unless @sales_quotation.sales_quotation_items.size >= 20
   end  
 
@@ -46,34 +45,13 @@ class SalesQuotationsController < ApplicationController
   
   def index
     @sales_quotations = SalesQuotation.includes(sales_quotation_items: [:unit, :category])
-  
-    # 顧客名での検索
-    if params[:customer_name].present?
-      @sales_quotations = @sales_quotations.joins(:customer).where("customers.customer_name LIKE ?", "%#{params[:customer_name]}%")
-    end
-  
-    # 見積番号での検索
-    if params[:quotation_number].present?
-      @sales_quotations = @sales_quotations.where(quotation_number: params[:quotation_number])
-    end
-  
-    # カテゴリーでの検索
-    if params[:category_name].present?
-      @sales_quotations = @sales_quotations.joins(sales_quotation_items: :category).where("categories.category_name LIKE ?", "%#{params[:category_name]}%")
-    end
-  
-    # 品名での検索
-    if params[:item_name].present?
-      @sales_quotations = @sales_quotations.joins(:sales_quotation_items).where("sales_quotation_items.item_name LIKE ?", "%#{params[:item_name]}%")
-    end
-  
-    # 最後にソートとページネーションを適用
+    filter_sales_quotations
     @sales_quotations = @sales_quotations.order(created_at: :desc).page(params[:page]).per(20)
   end
+
   
 
   def show
-    @sales_quotation = SalesQuotation.find(params[:id])
     @customer = @sales_quotation.customer
     @company_info = CompanyInfo.first
     @user = @sales_quotation.user
@@ -120,7 +98,6 @@ class SalesQuotationsController < ApplicationController
 end
   
   def edit
-    @sales_quotation = SalesQuotation.find(params[:id])
     @sales_quotation_items = @sales_quotation.sales_quotation_items
 
     unless session[:allowed_to_edit] == @sales_quotation.id
@@ -136,13 +113,9 @@ end
     additional_rows = 20 - @sales_quotation_items.size
     additional_rows.times { @sales_quotation.sales_quotation_items.build } if additional_rows > 0
   
-    @customers = Customer.all.pluck(:customer_name, :id)
-    @representatives = Representative.all.map { |r| [r.department_name + ' - ' + r.representative_name, r.id] }
   end
   
   def update
-    @sales_quotation = SalesQuotation.find(params[:id])
-  
     if @sales_quotation.update(sales_quotation_params)
         redirect_to sales_quotation_path(@sales_quotation), notice: 'sales quotation was successfully updated.'
     else
@@ -161,7 +134,6 @@ end
   end
 
   def generate_pdf
-    @sales_quotation = SalesQuotation.find(params[:id])
     @customer = @sales_quotation.customer
     @company_info = CompanyInfo.first
     @user = @sales_quotation.user
@@ -292,11 +264,30 @@ end
     end
   end
   
-
   private
 
   def set_sales_quotation
     @sales_quotation = SalesQuotation.find(params[:id])
+  end
+
+  def set_select_collections
+    @customers = Customer.all.pluck(:customer_name, :id)
+    @representatives = Representative.all.map { |r| [r.department_name + ' - ' + r.representative_name, r.id] }
+  end
+
+  def filter_sales_quotations
+    if params[:customer_name].present?
+      @sales_quotations = @sales_quotations.joins(:customer).where("customers.customer_name LIKE ?", "%#{params[:customer_name]}%")
+    end
+    if params[:quotation_number].present?
+      @sales_quotations = @sales_quotations.where(quotation_number: params[:quotation_number])
+    end
+    if params[:category_name].present?
+      @sales_quotations = @sales_quotations.joins(sales_quotation_items: :category).where("categories.category_name LIKE ?", "%#{params[:category_name]}%")
+    end
+    if params[:item_name].present?
+      @sales_quotations = @sales_quotations.joins(:sales_quotation_items).where("sales_quotation_items.item_name LIKE ?", "%#{params[:item_name]}%")
+    end
   end
 
   def sales_quotation_params

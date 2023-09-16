@@ -338,7 +338,7 @@ https://docs.google.com/spreadsheets/d/1KH8jTvII3dGyH9HfbrC_hj9XMQGc_bzCZjA0wFs1
 
 | Column              | Type    | Options                        |
 | ------------------- | ------- | ------------------------------ |
-| quotation_id        | integer | null: false, foreign_key: true |
+| sales_quotation_id  | integer | null: false, foreign_key: true |
 | category            | String  | null: false                    |
 | item_name           | string  | null: false                    |
 | quantity            | integer | null: false                    |
@@ -379,16 +379,16 @@ https://docs.google.com/spreadsheets/d/1KH8jTvII3dGyH9HfbrC_hj9XMQGc_bzCZjA0wFs1
 
 ### purchase_quotation_items テーブル（中間テーブル）
 
-| Column              | Type    | Options                        |
-| ------------------- | ------- | ------------------------------ |
-| quotation_id        | integer | null: false, foreign_key: true |
-| category            | String  | null: false                    |
-| item_name           | string  | null: false                    |
-| quantity            | integer | null: false                    |
-| unit_id             | string  | null: false, foreign_key: true |
-| unit_price          | integer | null: false                    |
-| note                | string  |                                |
-| result              | string  |                                |
+| Column                | Type    | Options                        |
+| --------------------- | ------- | ------------------------------ |
+| purchase_quotation_id | integer | null: false, foreign_key: true |
+| category              | String  | null: false                    |
+| item_name             | string  | null: false                    |
+| quantity              | integer | null: false                    |
+| unit_id               | string  | null: false, foreign_key: true |
+| unit_price            | integer | null: false                    |
+| note                  | string  |                                |
+| result                | string  |                                |
 
 #### Association
 

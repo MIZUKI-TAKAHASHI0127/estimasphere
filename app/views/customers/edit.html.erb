@@ -35,16 +35,13 @@
         <%= form.text_field :phone_number, class: "form-control", placeholder: "Phone number" %>
       </div>
       
-
       <div id="representatives">
         <%= form.fields_for :representatives do |representative_form| %>
           <%= render "shared/representative_fields", f: representative_form %>
         <% end %>
       </div>
-
-      <%= turbo_frame_tag 'new_representative' do %>
-        <%= link_to "担当者を追加", new_representative_customer_path(@customer) %>
-      <% end %>
+        
+      <%= link_to '担当者を追加', new_customer_representative_path(@customer), class: "btn btn-secondary" %>
 
       <div class="d-flex justify-content-center">
         <%= form.submit "更新", class: "btn btn-primary" %>

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :company_infos, only: [:new, :create, :index, :show, :edit, :update]
   
   resources :customers, only: [:new, :create, :index, :show, :edit, :update] do
-    
+    resources :representatives, only: [:new, :create]
     collection do
       get :find
       get :search
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     member do
       get 'new_representative', to: 'customers#new_representative'
       post 'new_representative', to: 'customers#create_representative'
-      get :representatives
+     # get :representatives
     end
   end  
   
