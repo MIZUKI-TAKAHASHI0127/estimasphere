@@ -17,11 +17,12 @@
 
   <div class="card">
     <div class="card-body">
+    <div class="custom-width-container">
       <%= form_with model: @sales_quotation do |form| %>
         <div class="form-group">
           <%= form.label :quotation_number, "見積番号" %>
           <%= form.text_field :quotation_number, class: "form-control", disabled: true %>
-
+    
           <div data-controller="sales_quotation">
             <%= form.label :customer_id, "顧客名" %>
             <%= form.select :customer_id, options_for_select(@customers), { include_blank: '選択してください' }, { class: "form-control select2-customer", data: { action: "change->sales-quotation#fetchRepresentatives" } } %>
@@ -45,7 +46,7 @@
           <%= form.label :trading_conditions, "取引条件" %>
           <%= form.text_field :trading_conditions, class: "form-control" %>
         </div>
-
+      </div>
         <table class="table table-bordered mt-4">
           <thead>
             <tr>

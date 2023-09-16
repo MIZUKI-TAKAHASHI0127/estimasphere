@@ -3,10 +3,10 @@ class Customer < ApplicationRecord
   accepts_nested_attributes_for :representatives, reject_if: :all_blank, allow_destroy: true
 
   validates :customer_name, presence: true
-  validates :customer_code, uniqueness: { case_sensitive: true }, format: { with: /\A[a-zA-Z0-9\-]+\z/, message: "can only contain alphanumeric characters and hyphens" },
- length: { maximum: 10 }, allow_blank: true
+  validates :customer_code, uniqueness: true, allow_blank: true, length: { maximum: 10 }, format: { with: /\A[a-zA-Z0-9]+\z/, message: 'can only contain alphanumeric characters' }
   validates :address, presence: true
-  validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "is invalid. Must be 10 or 11 digits."}
+  VALID_PHONE_NUMBER_REGEX = /\A0(\d{1}-\d{4}-\d{4}|\d{2}-\d{3}-\d{4}|\d{2}-\d{4}-\d{4}|\d{3}-\d{2}-\d{4}|\d{3}-\d{3}-\d{4}|\d{4}-\d{1}-\d{4}|\d{4}-\d{2}-\d{4})\z|\A0[5789]0-\d{4}-\d{4}\z/
+  validates :phone_number, format: { with: VALID_PHONE_NUMBER_REGEX, message: 'is invalid' }
 
   def self.search(search)
     if search != ""

@@ -1,15 +1,21 @@
 .title-contents {
-  background-color: lavender !important;
+  background-color: green !important;
 }
 
 .navbar {
   height: 80px !important;
-  background-color: lavender !important;
+  background-color: green !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
 }
 
 .navbar-brand {
   font-size: 30px !important;
-  color: midnightblue !important;
+  color: gold !important;
+  font-family: 'DM Serif Display', serif;
 }
 
 .lists-right {
@@ -25,10 +31,41 @@
 }
 
 .user-name {
-  color: black !important;
+  color: cornsilk !important;
   font-size: 22px !important;
+  text-decoration-line: none;
 }
 
-.navbar-brand.site-title {
-  font-size: 30px !important;
+.btn-outline-light {
+  color: white !important;
+  border-color: white !important;
+  transition: background-color 0.3s, color 0.3s !important;
 }
+
+.btn-outline-light:hover {
+  background-color: white !important;
+  color: green !important;
+}
+
+.btn-primary {
+  background-color: #0056b3 !important;
+  border-color: #0056b3 !important;
+  color: white !important;
+  transition: background-color 0.3s !important;
+}
+
+.btn-primary:hover {
+  background-color: #003d80 !important;
+}
+
+.btn-outline-success {
+  color: lightgoldenrodyellow !important;
+  border-color: lightgoldenrodyellow !important;
+  transition: background-color 0.3s, color 0.3s !important;
+}
+
+.btn-outline-success:hover {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+

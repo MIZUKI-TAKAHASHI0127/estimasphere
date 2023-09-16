@@ -3,7 +3,8 @@ class Representative < ApplicationRecord
   has_many :sales_quotations
   validates :department_name, presence: true, unless: :any_other_field_present?
   validates :representative_name, presence: true, unless: :any_other_field_present?
-  validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "is invalid. Must be 10 or 11 digits.", allow_blank: true }
+  VALID_PHONE_NUMBER_REGEX = /\A0(\d{1}-\d{4}-\d{4}|\d{2}-\d{3}-\d{4}|\d{2}-\d{4}-\d{4}|\d{3}-\d{2}-\d{4}|\d{3}-\d{3}-\d{4}|\d{4}-\d{1}-\d{4}|\d{4}-\d{2}-\d{4})\z|\A0[5789]0-\d{4}-\d{4}\z/
+  validates :phone_number, format: { with: VALID_PHONE_NUMBER_REGEX, message: 'is invalid' }
   validates :email, presence: true, unless: :any_other_field_present?
   validate :department_name_and_representative_name_are_not_both_blank
 

@@ -17,11 +17,12 @@
 
   <div class="card">
     <div class="card-body">
+    <div class="custom-width-container">
       <%= form_with model: @purchase_quotation do |form| %>
         <div class="form-group">
           <%= form.label :quotation_number, "見積番号" %>
           <%= form.text_field :quotation_number, class: "form-control", disabled: true %>
-
+        
           <div data-controller="purchase-quotation">
             <%= form.label :customer_id, "顧客名" %>
             <%= form.select :customer_id, options_for_select(@customers), { include_blank: '選択してください' }, { class: "form-control select2-customer", data: { action: "change->purchase-quotation#fetchRepresentatives" } } %>
@@ -31,7 +32,7 @@
               <%= form.select :representative_id, options_for_select(@representatives), { include_blank: '-' }, class: "form-control", data: { target: "purchase-quotation.representativeSelect" } %>
             <% end %>
           </div>
-
+        
           <%= form.label :handover_place, "受渡場所" %>
           <%= form.text_field :handover_place, class: "form-control" %>
           <%= form.label :request_date, "見積依頼日" %>
@@ -45,6 +46,7 @@
           <%= form.label :trading_conditions, "取引条件" %>
           <%= form.text_field :trading_conditions, class: "form-control" %>
         </div>
+      </div>
 
         <table class="table table-bordered mt-4">
           <thead>

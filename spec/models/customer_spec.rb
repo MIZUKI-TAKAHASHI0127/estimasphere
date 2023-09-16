@@ -10,10 +10,11 @@ RSpec.describe Customer, type: :model do
       it '全ての入力事項が、存在すれば登録できる' do
         expect(@customer).to be_valid
       end
-      it '電話番号が10桁または11桁の半角数字であれば登録できる' do
-        @customer.phone_number = '09012345678'
-        expect(@customer).to be_valid
+
+      it '電話番号のフォーマットが適切であること' do
+        expect(@customer.phone_number).to match(Customer::VALID_PHONE_NUMBER_REGEX)
       end
+
       it '企業名が空欄でなければ保存できる' do
         @customer.customer_name = 'テスト企業'
         expect(@customer).to be_valid
@@ -35,10 +36,11 @@ RSpec.describe Customer, type: :model do
         another_customer.valid?
         expect(another_customer.errors.full_messages).to include('Customer code has already been taken')
       end
+
       it '顧客コードが半角英数字でなければ保存できない' do
         @customer.customer_code = '顧客コード'
         @customer.valid?
-        expect(@customer.errors.full_messages).to include("Customer code can only contain alphanumeric characters and hyphens")
+        expect(@customer.errors.full_messages).to include('Customer code can only contain alphanumeric characters')
       end
 
       it '顧客コードが10文字以上では保存できない' do
@@ -61,27 +63,32 @@ RSpec.describe Customer, type: :model do
       it '電話番号が空欄だと保存できない' do
         @customer.phone_number = ''
         @customer.valid?
-        expect(@customer.errors.full_messages).to include("Phone number is invalid. Must be 10 or 11 digits.")
+        expect(@customer.errors.full_messages).to include("Phone number is invalid")
       end
+      
       it '電話番号が10桁または11桁の半角数字でなければ保存できない' do
-        @customer.phone_number = '１２３４５６７８９０'
+        @customer.phone_number = '１２３-４５６-７８９０'
         @customer.valid?
-        expect(@customer.errors.full_messages).to include("Phone number is invalid. Must be 10 or 11 digits.")
+        expect(@customer.errors.full_messages).to include("Phone number is invalid")
       end
-      it '電話番号にハイフンがあると保存できないこと' do
-        @customer.phone_number = '090-1234-5678'
+      
+      it '電話番号にハイフンがないと保存できないこと' do
+        @customer.phone_number = '09012345678'
         @customer.valid?
-        expect(@customer.errors.full_messages).to include('Phone number is invalid. Must be 10 or 11 digits.')
+        expect(@customer.errors.full_messages).to include("Phone number is invalid")
       end
+  
       it '電話番号が12桁以上あると保存できないこと' do
-        @customer.phone_number = '090123456789'
+        @customer.phone_number = '090-1234-56789'
         @customer.valid?
-        expect(@customer.errors.full_messages).to include('Phone number is invalid. Must be 10 or 11 digits.')
+        expect(@customer.errors.full_messages).to include('Phone number is invalid')
       end
+
+ 
       it '電話番号が9桁以下では保存できないこと' do
-        @customer.phone_number = '090123456'
+        @customer.phone_number = '090-123-45'
         @customer.valid?
-        expect(@customer.errors.full_messages).to include('Phone number is invalid. Must be 10 or 11 digits.')
+        expect(@customer.errors.full_messages).to include('Phone number is invalid')
       end
     end
   end
