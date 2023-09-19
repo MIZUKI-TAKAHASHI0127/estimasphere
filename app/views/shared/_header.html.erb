@@ -7,7 +7,7 @@
 
     <ul class='lists-right'>
         <% if user_signed_in? %>
-          <li style="margin-right: 10px;"><%= link_to "ようこそ、#{current_user.last_name}さん", "#", class: "user-name" %></li>
+          <li style="margin-right: 10px;"><%= link_to "ようこそ、#{current_user.last_name}さん", my_page_estimates_path, class: "user-name" %></li>
           <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-light my-2 my-sm-0" %></li>
         <% else %>
           <li style="margin-right: 10px;"><%= link_to 'ログイン', user_session_path, class: "nav-link btn btn-primary my-2 my-sm-0" %></li>

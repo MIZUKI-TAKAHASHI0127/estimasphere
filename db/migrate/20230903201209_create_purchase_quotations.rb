@@ -11,7 +11,6 @@ class CreatePurchaseQuotations < ActiveRecord::Migration[7.0]
       t.string :handover_place
       t.string :trading_conditions
       t.references :representative, foreign_key: true
-      t.string :result
       t.timestamps
     end
     add_index :purchase_quotations, :quotation_number, unique: true

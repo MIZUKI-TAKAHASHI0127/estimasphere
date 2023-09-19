@@ -5,6 +5,7 @@ class SalesQuotation < ApplicationRecord
   validates_associated :sales_quotation_items
   belongs_to :representative, optional: true
   has_many :comments
+  
 
   accepts_nested_attributes_for :sales_quotation_items, reject_if: :all_blank, allow_destroy: true
   validates :quotation_number, uniqueness: { case_sensitive: true }

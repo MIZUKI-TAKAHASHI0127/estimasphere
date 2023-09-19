@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_201944) do
     t.bigint "unit_id", null: false
     t.integer "unit_price", null: false
     t.string "note"
-    t.string "result"
+    t.integer "result_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_purchase_quotation_items_on_category_id"
@@ -63,12 +63,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_201944) do
     t.date "delivery_date", null: false
     t.string "handover_place"
     t.string "trading_conditions"
-    t.integer "representative_id"
-    t.string "result"
+    t.bigint "representative_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_purchase_quotations_on_customer_id"
     t.index ["quotation_number"], name: "index_purchase_quotations_on_quotation_number", unique: true
+    t.index ["representative_id"], name: "index_purchase_quotations_on_representative_id"
     t.index ["user_id"], name: "index_purchase_quotations_on_user_id"
   end
 
@@ -91,7 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_201944) do
     t.bigint "unit_id", null: false
     t.integer "unit_price", null: false
     t.string "note"
-    t.string "result"
+    t.integer "result_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_sales_quotation_items_on_category_id"
@@ -108,12 +108,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_201944) do
     t.date "delivery_date", null: false
     t.string "delivery_place"
     t.string "trading_conditions"
-    t.integer "representative_id"
-    t.string "result"
+    t.bigint "representative_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_sales_quotations_on_customer_id"
     t.index ["quotation_number"], name: "index_sales_quotations_on_quotation_number", unique: true
+    t.index ["representative_id"], name: "index_sales_quotations_on_representative_id"
     t.index ["user_id"], name: "index_sales_quotations_on_user_id"
   end
 
@@ -141,10 +141,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_201944) do
   add_foreign_key "purchase_quotation_items", "categories"
   add_foreign_key "purchase_quotation_items", "units"
   add_foreign_key "purchase_quotations", "customers"
+  add_foreign_key "purchase_quotations", "representatives"
   add_foreign_key "purchase_quotations", "users"
   add_foreign_key "representatives", "customers"
   add_foreign_key "sales_quotation_items", "categories"
   add_foreign_key "sales_quotation_items", "units"
   add_foreign_key "sales_quotations", "customers"
+  add_foreign_key "sales_quotations", "representatives"
   add_foreign_key "sales_quotations", "users"
 end

@@ -95,3 +95,5 @@ gem 'prawn-table'
 gem 'select2-rails'
 
 gem 'rack-cors'
+
+gem 'active_hash'

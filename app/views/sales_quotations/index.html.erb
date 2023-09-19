@@ -18,8 +18,8 @@
             </div>
 
             <div class="col-md-2">
-              <%= f.label :category, "カテゴリー" %>
-              <%= f.text_field :category, class: "form-control" %>
+              <%= f.label :category_name, "カテゴリー" %>
+              <%= f.text_field :category_name, class: "form-control" %>
             </div>
 
             <div class="col-md-2">
@@ -44,23 +44,29 @@
             <th class="col-category">カテゴリー</th>
             <th class="col-item-name">品名</th>
             <th class="col-unit-price">単価</th>
+            <th class="col-result">結果</th>
           </tr>
         </thead>
 
-        <tbody>
-          <% @sales_quotations.each do |quotation| %>
-            <tr>
-              <td><%= quotation.quotation_date %></td>
-              <td><%= quotation.customer.customer_name %></td>
-              <td><%= link_to quotation.quotation_number, sales_quotation_path(quotation) %></td>
-              <td><%= quotation.sales_quotation_items.first&.category&.category_name %></td>
-              <td><%= quotation.sales_quotation_items.first&.item_name %></td>
-              <td style="text-align: right;"><%= number_with_delimiter(quotation.sales_quotation_items.first&.unit_price) %></td>
-            </tr>
-          <% end %>
-        </tbody>
+       <tbody>
+  <% @sales_quotations.each do |quotation| %>
+    <% quotation.sales_quotation_items.first(20).each_with_index do |item, index| %>
+      <tr>
+        <td><%= quotation.quotation_date %></td>
+        <td><%= quotation.customer.customer_name %></td>
+        <td><%= link_to quotation.quotation_number, sales_quotation_path(quotation) %></td>
+        <td><%= item.category&.category_name %></td>
+        <td style="text-align: left;"><%= item.item_name %></td>
+        <td style="text-align: right;"><%= number_with_delimiter(item.unit_price) %></td>
+        <td><%= item.result&.name %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</tbody>
+
+
       </table>
       <%= paginate @sales_quotations %>
     </div>
   </div>
-</div>
+</div> 

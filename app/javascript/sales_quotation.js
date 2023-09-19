@@ -31,7 +31,9 @@ document.addEventListener("DOMContentLoaded", function() {
       addRowsButton.style.display = 'none';
     }
   });
+  
   addRowsButton.click();
+  
 });
 
 document.addEventListener("turbo:load", function() {
@@ -52,7 +54,7 @@ document.addEventListener("turbo:load", function() {
           })
           .then(data => {
             const repSelect = document.querySelector('#sales_quotation_representative_id');
-            console.log(repSelect); // このログを確認してください。
+            console.log(repSelect); // このログを確認。
             repSelect.innerHTML = '';
 
             const defaultOption = document.createElement("option");
