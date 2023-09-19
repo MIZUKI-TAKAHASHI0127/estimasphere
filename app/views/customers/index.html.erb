@@ -1,22 +1,22 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-6">
       <h3 class="mb-4">顧客一覧</h3>
       <%= form_with(url: customers_path, method: :get, local: true, class: "form-inline my-2 my-lg-0") do %>
         <%= text_field_tag :search, nil, class: "form-control mr-sm-2", placeholder: "会社名で検索" %>
-        <%= submit_tag "検  索", name: nil, class: "btn btn-outline-success my-2 my-sm-0" %>
+        <%= submit_tag "検  索", name: nil, class: "btn btn-success my-2" %>
         <%= link_to 'リセット', customers_path, class: 'btn btn-outline-secondary ml-2' %>
       <% end %>
     </div>
   </div>
 
   <div class="row justify-content-center mt-4">
-    <div class="col-9">
+    <div class="col-8">
       <table class="table table-hover">
         <thead class="thead-dark">
           <tr>
             <th scope="col-1" style="width: 10%;">会社ID</th>
-            <th scope="col-5" style="width: 75%;">会社名</th>
+            <th scope="col-5" style="width: 30%;">会社名</th>
             <th scope="col-3" style="width: 15%;">顧客コード</th>
             
             

@@ -11,7 +11,6 @@ class CreateSalesQuotations < ActiveRecord::Migration[6.0]
       t.string :delivery_place
       t.string :trading_conditions
       t.references :representative, foreign_key: true
-      t.string :result
       t.timestamps
     end
     add_index :sales_quotations, :quotation_number, unique: true

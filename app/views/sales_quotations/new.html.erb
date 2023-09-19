@@ -29,10 +29,10 @@
 
             <%= form.label :representative_id, "部署名 - 担当者名" %>
             <%= turbo_frame_tag "representative_options" do %>
-              <%= form.select :representative_id, options_for_select(@representatives), { include_blank: '-' }, class: "form-control", data: { target: "sales-quotation.representativeSelect" } %>
+              <%= form.select :representative_id, options_for_select(@representatives), { include_blank: '-' }, class: "form-control representative-select", data: { target: "sales-quotation.representativeSelect" } %>
             <% end %>
           </div>
-
+        
           <%= form.label :delivery_place, "納入場所" %>
           <%= form.text_field :delivery_place, class: "form-control" %>
           <%= form.label :request_date, "見積依頼日" %>
@@ -47,6 +47,7 @@
           <%= form.text_field :trading_conditions, class: "form-control" %>
         </div>
       </div>
+
         <table class="table table-bordered mt-4">
           <thead>
             <tr>

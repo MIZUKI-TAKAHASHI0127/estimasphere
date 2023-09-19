@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :estimates, only: [:index] do
     collection do
       get :data_registration
+      get :my_page
     end
   end
   get 'sales_quotations/search_customer', to: 'sales_quotations#search_customer'
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
     member do
       get 'new_representative', to: 'customers#new_representative'
       post 'new_representative', to: 'customers#create_representative'
-     # get :representatives
+      get :representatives, defaults: { format: 'json' }
     end
   end  
   
@@ -50,6 +51,12 @@ Rails.application.routes.draw do
     member do
       get :generate_pdf
       get :requote
+    end
+  end
+
+  resources :sales_quotation_items, only: [:index, :update] do
+    collection do
+      get :filtered
     end
   end
   

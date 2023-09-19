@@ -8,7 +8,7 @@ class CreateSalesQuotationItems < ActiveRecord::Migration[6.0]
       t.references :unit, null: false, foreign_key: true
       t.integer :unit_price, null: false
       t.string :note
-      t.string :result
+      t.integer :result_id
 
       t.timestamps
     end
