@@ -1,11 +1,12 @@
+
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-12">
-      <h2>My Sales Quotations</h2>
+      <h2>My Purchase Quotations</h2>
 
       <!-- Search form -->
       <div class="my-3">
-        <%= form_with url: sales_quotation_items_path, method: :get, local: true do |f| %>
+        <%= form_with url: purchase_quotation_items_path, method: :get, local: true do |f| %>
           <div class="row">
             <div class="col-md-2">
               <%= f.label :customer_name, "顧客名" %>
@@ -29,7 +30,7 @@
 
             <div class="col-md-2 align-self-end">
               <%= f.submit "検索", class: "btn btn-primary" %>
-              <%= link_to "リセット", sales_quotation_items_path, class: "btn btn-secondary ml-2" %>
+              <%= link_to "リセット", purchase_quotation_items_path, class: "btn btn-secondary ml-2" %>
             </div>
           </div>
         <% end %>
@@ -49,16 +50,16 @@
         </thead>
 
         <tbody>
-          <% @sales_quotation_items.each do |quotation_item| %>
+          <% @purchase_quotation_items.each do |quotation_item| %>
             <tr>
-              <td><%= quotation_item.sales_quotation.quotation_date %></td>
-              <td><%= quotation_item.sales_quotation.customer.customer_name %></td>
-              <td><%= link_to quotation_item.sales_quotation.quotation_number, sales_quotation_path(quotation_item.sales_quotation) %></td>
+              <td><%= quotation_item.purchase_quotation.quotation_date %></td>
+              <td><%= quotation_item.purchase_quotation.customer.customer_name %></td>
+              <td><%= link_to quotation_item.purchase_quotation.quotation_number, purchase_quotation_path(quotation_item.purchase_quotation) %></td>
               <td><%= quotation_item.category&.category_name %></td>
               <td><%= quotation_item.item_name %></td>
               <td style="text-align: right;"><%= number_with_delimiter(quotation_item.unit_price) %></td>
               <td>
-                <%= form_with model: quotation_item, url: sales_quotation_item_path(quotation_item), method: :patch, local: true do |f| %>
+                <%= form_with model: quotation_item, url: purchase_quotation_item_path(quotation_item), method: :patch, local: true do |f| %>
                   <%= f.select :result_id, Result.all.map { |r| [r.name, r.id] }, {}, class: "form-control" %>
                   <%= f.submit "更新", class: "btn btn-primary mt-2" %>
                 <% end %>
@@ -68,10 +69,9 @@
           <% end %>
         </tbody>
       </table>
-      <%= paginate @sales_quotation_items %>
+      <%= paginate @purchase_quotation_items %>
     </div>
   </div>
 </div>
 
-
-<%#= paginate @sales_quotation_items %>
+<%#= paginate @purchase_quotation_items %>
