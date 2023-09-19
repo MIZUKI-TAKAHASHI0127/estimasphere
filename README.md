@@ -209,7 +209,7 @@ https://docs.google.com/spreadsheets/d/1KH8jTvII3dGyH9HfbrC_hj9XMQGc_bzCZjA0wFs1
 以下のコマンドを順に実行。
 
 % git clone https://github.com/MIZUKI-TAKAHASHI0127/estimasphere.git<br>
-% cd ~/projects/estimasphere<br>
+% cd ~/estimasphere<br>
 % bundle install<br>
 % yarn install<br>
 
