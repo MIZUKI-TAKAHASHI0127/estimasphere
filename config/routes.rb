@@ -59,6 +59,12 @@ Rails.application.routes.draw do
       get :filtered
     end
   end
+
+  resources :purchase_quotation_items, only: [:index, :update] do
+    collection do
+      get :filtered
+    end
+  end
   
   resources :categories, only: [:new, :create, :index]
   

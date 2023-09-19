@@ -2,7 +2,8 @@ class SalesQuotationItem < ApplicationRecord
   belongs_to :sales_quotation
   belongs_to :unit
   belongs_to :category
-  belongs_to :result, class_name: 'Result', optional: true
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to_active_hash :result
 
 
   validates :sales_quotation, :category, :item_name, :unit_id, presence: true

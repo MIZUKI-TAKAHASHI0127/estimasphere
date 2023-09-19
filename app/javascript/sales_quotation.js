@@ -31,7 +31,9 @@ document.addEventListener("DOMContentLoaded", function() {
       addRowsButton.style.display = 'none';
     }
   });
+  
   addRowsButton.click();
+  
 });
 
 document.addEventListener("turbo:load", function() {

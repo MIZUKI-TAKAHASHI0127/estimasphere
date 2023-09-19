@@ -2,7 +2,8 @@ class PurchaseQuotationItem < ApplicationRecord
   belongs_to :purchase_quotation
   belongs_to :unit
   belongs_to :category
-  belongs_to :result, class_name: 'Result', optional: true
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to_active_hash :result
 
 
   validates :purchase_quotation, :category, :item_name, :unit_id, presence: true
