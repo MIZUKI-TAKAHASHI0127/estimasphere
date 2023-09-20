@@ -2,7 +2,7 @@
     <%= link_to 'PDFでダウンロード', generate_pdf_purchase_quotation_path(@purchase_quotation), class: 'btn btn-primary download-button' %>
     <%= link_to '再見積', requote_purchase_quotation_path(@purchase_quotation), class: 'btn btn-success requote-button' %>
 </div>
-
+<div class = page-wrapper>
 <div class="pdf-quotation-wrapper">
 <div class="text-center">
     <h1>仕入見積書</h1>
@@ -82,5 +82,6 @@
             </tfoot>
         </table>
     </div>
+</div>
 </div>
 </div>

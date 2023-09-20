@@ -44,30 +44,10 @@ class PurchaseQuotationsController < ApplicationController
   
   
   def index
-    @purchase_quotations = PurchaseQuotation.includes(purchase_quotation_items: [:unit, :category])
-  
-    # 顧客名での検索
-    if params[:customer_name].present?
-      @purchase_quotations = @purchase_quotations.joins(:customer).where("customers.customer_name LIKE ?", "%#{params[:customer_name]}%")
-    end
-  
-    # 見積番号での検索
-    if params[:quotation_number].present?
-      @purchase_quotations = @purchase_quotations.where(quotation_number: params[:quotation_number])
-    end
-  
-    # カテゴリーでの検索
-    if params[:category_name].present?
-      @purchase_quotations = @purchase_quotations.joins(purchase_quotation_items: :category).where("categories.category_name LIKE ?", "%#{params[:category_name]}%")
-    end
-  
-    # 品名での検索
-    if params[:item_name].present?
-      @purchase_quotations = @purchase_quotations.joins(:purchase_quotation_items).where("purchase_quotation_items.item_name LIKE ?", "%#{params[:item_name]}%")
-    end
-  
-    # 最後にソートとページネーションを適用
-    @purchase_quotations = @purchase_quotations.order(created_at: :desc).page(params[:page]).per(20)
+    @purchase_quotation_items = PurchaseQuotationItem.includes(purchase_quotation: [:customer])
+    filter_purchase_quotations
+    @purchase_quotation_items = @purchase_quotation_items.order(created_at: :desc).page(params[:page]).per(20)
+    puts "@purchase_quotation_items.count: #{@purchase_quotation_items.count}"
   end
   
 
@@ -318,5 +298,24 @@ end
   def number_with_delimiter(number)
     number.to_s.gsub(/(\d)(?=(\d{3})+(?!\d))/, '\\1,')
   end
+
+  def filter_purchase_quotations
+    if params[:customer_name].present?
+      @purchase_quotation_items = @purchase_quotation_items.joins(:purchase_quotation).where("purchase_quotations.customer_name LIKE ?", "%#{params[:customer_name]}%")
+    end
+  
+    if params[:quotation_number].present?
+      @purchase_quotation_items = @purchase_quotation_items.joins(:purchase_quotation).where("purchase_quotations.quotation_number LIKE ?", "%#{params[:quotation_number]}%")
+    end
+  
+    if params[:item_name].present?
+      @purchase_quotation_items = @purchase_quotation_items.where("item_name LIKE ?", "%#{params[:item_name]}%")
+    end
+  
+    if params[:category_name].present?
+      @purchase_quotation_items = @purchase_quotation_items.joins(:category).where("categories.category_name LIKE ?", "%#{params[:category_name]}%")
+    end
+  end
+
   
 end
