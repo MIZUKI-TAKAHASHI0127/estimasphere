@@ -44,11 +44,13 @@ class SalesQuotationsController < ApplicationController
   
   
   def index
-    @sales_quotations = SalesQuotation.includes(sales_quotation_items: [:unit, :category])
-    filter_sales_quotations
-    @sales_quotations = @sales_quotations.order(created_at: :desc).page(params[:page]).per(20)
-  end
 
+    @sales_quotation_items = SalesQuotationItem.includes(sales_quotation: [:customer])
+    filter_sales_quotations
+    @sales_quotation_items = @sales_quotation_items.order(created_at: :desc).page(params[:page]).per(20)
+    puts "@sales_quotation_items.count: #{@sales_quotation_items.count}"
+  end
+  
   
 
   def show
@@ -277,17 +279,21 @@ end
 
   def filter_sales_quotations
     if params[:customer_name].present?
-      @sales_quotations = @sales_quotations.joins(:customer).where("customers.customer_name LIKE ?", "%#{params[:customer_name]}%")
+      @sales_quotation_items = @sales_quotation_items.joins(:sales_quotation).where("sales_quotations.customer_name LIKE ?", "%#{params[:customer_name]}%")
     end
+  
     if params[:quotation_number].present?
-      @sales_quotations = @sales_quotations.where(quotation_number: params[:quotation_number])
+      @sales_quotation_items = @sales_quotation_items.joins(:sales_quotation).where("sales_quotations.quotation_number LIKE ?", "%#{params[:quotation_number]}%")
     end
-    if params[:category_name].present?
-      @sales_quotations = @sales_quotations.joins(sales_quotation_items: :category).where("categories.category_name LIKE ?", "%#{params[:category_name]}%")
-    end
+  
     if params[:item_name].present?
-      @sales_quotations = @sales_quotations.joins(:sales_quotation_items).where("sales_quotation_items.item_name LIKE ?", "%#{params[:item_name]}%")
+      @sales_quotation_items = @sales_quotation_items.where("item_name LIKE ?", "%#{params[:item_name]}%")
     end
+  
+    if params[:category_name].present?
+      @sales_quotation_items = @sales_quotation_items.joins(:category).where("categories.category_name LIKE ?", "%#{params[:category_name]}%")
+    end
+    
   end
 
   def sales_quotation_params

@@ -11,8 +11,6 @@ class SalesQuotationItemsController < ApplicationController
   end
   
   
-  
-  
   def update
     @sales_quotation_item.update(sales_quotation_item_params)
   
