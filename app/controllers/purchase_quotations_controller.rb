@@ -186,7 +186,7 @@ end
         # 左列のデータを左端に配置
         t.columns(0).style(align: :left)
         # 右列のデータを右端に配置 & 左側のパディングを増やしてデータをさらに右に寄せる
-        t.columns(1).style(align: :right, padding_left: 180)
+        t.columns(1).style(align: :right, padding_left: 230)
       end
 
       pdf.move_down 40
@@ -210,7 +210,7 @@ end
         # 左列のデータを左端に配置
         t.columns(0).style(align: :left)
         # 右列のデータを右端に配置 & 左側のパディングを増やしてデータをさらに右に寄せる
-        t.columns(1).style(align: :right, padding_left: 270)
+        t.columns(1).style(align: :right, padding_left: 350)
       end
       #pdf.table(data, column_widths: [345, 345], cell_style: { borders: [] })
 

@@ -179,7 +179,7 @@ end
         # 左列のデータを左端に配置
         t.columns(0).style(align: :left)
         # 右列のデータを右端に配置 & 左側のパディングを増やしてデータをさらに右に寄せる
-        t.columns(1).style(align: :right, padding_left: 180)
+        t.columns(1).style(align: :right, padding_left: 230)
       end
 
       pdf.move_down 30
@@ -192,8 +192,8 @@ end
       user_name = "#{@user.last_name} #{@user.first_name}"
   
       data = [
-        ["", "会社名: #{company_info}"],
-        ["有効期限: #{@sales_quotation.quotation_due_date.strftime("%Y年%m月%d日")}", "住所: #{company_address}"],
+        ["", "#{company_info}"],
+        ["有効期限: #{@sales_quotation.quotation_due_date.strftime("%Y年%m月%d日")}", "#{company_address}"],
         ["納入場所: #{@sales_quotation.delivery_place}", "電話番号: #{phone_number}"],
         ["納 入 日: #{@sales_quotation.delivery_date.strftime("%Y年%m月%d日")}", "FAX番号: #{fax_number}"],
         ["取引条件: #{@sales_quotation.trading_conditions}", "担当: #{user_name}"]
@@ -203,7 +203,7 @@ end
         # 左列のデータを左端に配置
         t.columns(0).style(align: :left)
         # 右列のデータを右端に配置 & 左側のパディングを増やしてデータをさらに右に寄せる
-        t.columns(1).style(align: :right, padding_left: 270)
+        t.columns(1).style(align: :right, padding_left: 350)
       end
       #pdf.table(data, column_widths: [345, 345], cell_style: { borders: [] })
 
