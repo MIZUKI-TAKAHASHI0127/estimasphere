@@ -26,7 +26,7 @@
     
           <div data-controller="sales_quotation">
             <%= form.label :customer_id, "顧客名" %>
-            <%= form.select :customer_id, options_for_select(@customers), { include_blank: '選択してください' }, { class: "form-control select2-customer", data: { action: "change->sales-quotation#fetchRepresentatives" } } %>
+            <%= form.select :customer_id, options_for_select(@customers, @customer ? @customer.id : nil), { include_blank: '選択してください' }, { class: "form-control select2-customer" } %>
 
             <%= form.label :representative_id, "部署名 - 担当者名" %>
             <%= turbo_frame_tag "representative_options" do %>

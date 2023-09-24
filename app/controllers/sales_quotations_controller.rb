@@ -6,9 +6,11 @@ class SalesQuotationsController < ApplicationController
   
 
   def new
-    @sales_quotation = SalesQuotation.new
+    @customer = params[:customer_id] ? Customer.find(params[:customer_id]) : nil
+    @sales_quotation = @customer ? @customer.sales_quotations.build : SalesQuotation.new
     20.times { @sales_quotation.sales_quotation_items.build } unless @sales_quotation.sales_quotation_items.size >= 20
-  end  
+  end
+  
 
   def create
     @sales_quotation = SalesQuotation.new(sales_quotation_params)

@@ -1,4 +1,6 @@
 class Customer < ApplicationRecord
+  has_many :sales_quotations
+  has_many :purchase_quotations
   has_many :representatives, inverse_of: :customer
   accepts_nested_attributes_for :representatives, reject_if: :all_blank, allow_destroy: true
 
