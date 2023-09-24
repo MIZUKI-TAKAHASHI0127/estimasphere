@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get :generate_pdf
       get :requote
     end
+    resources :comments, only: [:create, :edit, :update]
   end
 
   resources :purchase_quotations, only: [:new, :create, :index, :show, :edit, :update] do
@@ -52,6 +53,7 @@ Rails.application.routes.draw do
       get :generate_pdf
       get :requote
     end
+    resources :comments, only: [:create, :edit, :update]
   end
 
   resources :sales_quotation_items, only: [:index, :update] do
@@ -69,6 +71,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:new, :create, :index]
   
   resources :units, only: [:new, :create, :index]
+
 
   get '/estimates/data_registration', to: 'estimates#data_registration', as: :data_registration
   
