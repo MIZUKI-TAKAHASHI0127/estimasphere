@@ -53,9 +53,12 @@ class PurchaseQuotationsController < ApplicationController
 
   def show
     @purchase_quotation = PurchaseQuotation.find(params[:id])
+    @commentable = @purchase_quotation
     @customer = @purchase_quotation.customer
     @company_info = CompanyInfo.first
     @user = @purchase_quotation.user
+    @comment = Comment.new
+    @comments = @purchase_quotation.comments.order(created_at: :desc)
 
     respond_to do |format|
       format.html
@@ -200,7 +203,7 @@ end
   
       data = [
         ["", "会社名: #{company_info}"],
-        ["有効期限: #{@purchase_quotation.quotation_due_date.strftime("%Y年%m月%d日")}", "住所: #{company_address}"],
+        ["有効期限: #{@purchase_quotation.quotation_due_date.strftime("%Y年%m月%d日")}", "#{company_address}"],
         ["受渡場所: #{@purchase_quotation.handover_place}", "電話番号: #{phone_number}"],
         ["受 渡 日: #{@purchase_quotation.delivery_date.strftime("%Y年%m月%d日")}", "FAX番号: #{fax_number}"],
         ["取引条件: #{@purchase_quotation.trading_conditions}", "担当: #{user_name}"]

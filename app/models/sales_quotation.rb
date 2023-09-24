@@ -4,9 +4,9 @@ class SalesQuotation < ApplicationRecord
   has_many :sales_quotation_items, inverse_of: :sales_quotation, dependent: :destroy
   validates_associated :sales_quotation_items
   belongs_to :representative, optional: true
-  has_many :comments
-  
+  has_many :comments, as: :commentable
 
+  
   accepts_nested_attributes_for :sales_quotation_items, reject_if: :all_blank, allow_destroy: true
   validates :quotation_number, uniqueness: { case_sensitive: true }
   validates :customer_id, :user_id, :request_date, :quotation_date, :quotation_due_date, presence: true

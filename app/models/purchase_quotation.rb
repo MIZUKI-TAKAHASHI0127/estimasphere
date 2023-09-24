@@ -4,7 +4,7 @@ class PurchaseQuotation < ApplicationRecord
   has_many :purchase_quotation_items, inverse_of: :purchase_quotation, dependent: :destroy
   validates_associated :purchase_quotation_items
   belongs_to :representative, optional: true
-  has_many :comments
+  has_many :comments, as: :commentable
 
   accepts_nested_attributes_for :purchase_quotation_items, reject_if: :all_blank, allow_destroy: true
   validates :quotation_number, uniqueness: { case_sensitive: true }

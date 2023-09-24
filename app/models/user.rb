@@ -13,5 +13,6 @@ class User < ApplicationRecord
   
    has_many :sales_quotations
    has_many :purchase_quotations
+   has_many :comments
 
 end

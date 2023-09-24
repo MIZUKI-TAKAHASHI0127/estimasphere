@@ -83,5 +83,47 @@
         </table>
     </div>
 </div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+
+      <div class="comment_container card mb-4">
+        <div class="card-body">
+          <% if user_signed_in? %>
+            <%= form_with(model: [@commentable, @comment], local: true, class: "mb-3") do |form| %>
+              <%= form.text_area :text, placeholder: "コメントする", rows: "2", class: "form-control mb-2" %>
+              <%= form.submit "SEND", class: "btn btn-primary" %> 
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="comments card mt-4">
+        <div class="card-body">
+            <h4 class="card-title mb-4">＜コメント一覧＞</h4>
+            <% @comments.each do |comment| %>
+                <div class="comment-item mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong><%= " #{comment.user.last_name} #{comment.user.first_name} " %>：</strong>
+                        <% if comment.user == current_user %>
+                            <%= link_to 'Edit', edit_purchase_quotation_comment_path(@purchase_quotation, comment), class: "btn btn-sm btn-primary" %>
+                        <% end %>
+                    </div>
+                    <p class="card-text mt-2">
+                        <%= comment.text %>
+                    </p>
+                </div>
+                <hr>
+            <% end %>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+  </div>
 </div>
 </div>

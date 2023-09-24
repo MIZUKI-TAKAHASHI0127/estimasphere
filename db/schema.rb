@@ -10,12 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_03_201944) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_19_121946) do
   create_table "categories", charset: "utf8", force: :cascade do |t|
     t.string "category_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_name"], name: "index_categories_on_category_name", unique: true
+  end
+
+  create_table "comments", charset: "utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "sales_quotation_id"
+    t.integer "purchase_quotation_id"
+    t.text "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
   end
 
   create_table "company_infos", charset: "utf8", force: :cascade do |t|

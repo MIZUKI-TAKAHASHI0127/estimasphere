@@ -54,9 +54,12 @@ class SalesQuotationsController < ApplicationController
   
 
   def show
+    @commentable = @sales_quotation
     @customer = @sales_quotation.customer
     @company_info = CompanyInfo.first
     @user = @sales_quotation.user
+    @comment = Comment.new
+    @comments = @sales_quotation.comments.order(created_at: :desc)
 
     respond_to do |format|
       format.html
