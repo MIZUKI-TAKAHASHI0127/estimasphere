@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_19_121946) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_19_154724) do
   create_table "categories", charset: "utf8", force: :cascade do |t|
     t.string "category_name", null: false
     t.datetime "created_at", null: false
@@ -20,8 +20,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_121946) do
 
   create_table "comments", charset: "utf8", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "sales_quotation_id"
-    t.integer "purchase_quotation_id"
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
