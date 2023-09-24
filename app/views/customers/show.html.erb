@@ -1,38 +1,46 @@
-<div class = page-wrapper>
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-6">
-      <div class="card mb-3">
-        <div class="card-header bg-primary text-white">
-          会社詳細
+<div class="page-wrapper">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="mb-4">
+          <h2 class="text-primary mb-3"><%= @customer.customer_name %></h2>
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              会社詳細
+            </div>
+            <div class="card-body">
+              <p class="card-text mb-1"><strong>顧客コード: </strong><%= @customer.customer_code %></p>
+              <p class="card-text mb-1"><strong>住 所: </strong><%= @customer.address %></p>
+              <p class="card-text mb-1"><strong>電話番号: </strong><%= @customer.phone_number %></p>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-          <p class="card-text"><strong>顧客コード: </strong><%= @customer.customer_code %></p>
-          <p class="card-text"><strong>会 社 名: </strong><%= @customer.customer_name %></p>
-          <p class="card-text"><strong>住 所: </strong><%= @customer.address %></p>
-          <p class="card-text"><strong>電話番号: </strong><%= @customer.phone_number %></p>
+
+        <% @customer.representatives.each do |representative| %>
+          <div class="card mb-3 shadow-sm">
+            <div class="card-header bg-secondary text-white">
+              担当者
+            </div>
+            <div class="card-body">
+              <p class="card-text mb-1"><strong>担当部署: </strong><%= representative.department_name %></p>
+              <p class="card-text mb-1"><strong>担当者名: </strong><%= representative.representative_name %></p>
+              <p class="card-text mb-1"><strong>Email: </strong><%= representative.email %></p>
+              <p class="card-text mb-1"><strong>電話番号: </strong><%= representative.phone_number %></p>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="d-flex justify-content-between mt-4">
+          <%= link_to '顧客一覧に戻る', customers_path, class: 'btn btn-outline-primary mr-2' %>
+          <%= link_to '編集', edit_customer_path(@customer), class: 'btn btn-outline-secondary mr-2' %>
+          <%= link_to '担当者を追加', new_customer_representative_path(@customer), class: "btn btn-outline-dark" %>
+        </div>
+
+        <div class="mt-3">
+          <%= link_to '販売見積', new_sales_quotation_path(customer_id: @customer.id), class: 'btn btn-primary mr-2' %>
+          <%= link_to '仕入見積', new_purchase_quotation_path(customer_id: @customer.id), class: 'btn btn-secondary' %>
         </div>
       </div>
-
-      <% @customer.representatives.each do |representative| %>
-        <div class="card mb-3 shadow-sm">
-
-          <div class="card-header bg-primary text-white">
-            担当者
-          </div>
-          <div class="card-body">
-            <p class="card-text"><strong>担当部署: </strong><%= representative.department_name %></p>
-            <p class="card-text"><strong>担当者名: </strong><%= representative.representative_name %></p>
-            <p class="card-text"><strong>Email: </strong><%= representative.email %></p>
-            <p class="card-text"><strong>電話番号: </strong><%= representative.phone_number %></p>
-          </div>
-        </div>
-      <% end %>
-
-      <%= link_to '顧客一覧に戻る', customers_path, class: 'btn btn-primary mr-2' %>
-      <%= link_to '編集', edit_customer_path(@customer), class: 'btn btn-secondary' %>
-      <%= link_to '担当者を追加', new_customer_representative_path(@customer), class: "btn btn-secondary" %>
     </div>
   </div>
-</div>
 </div>

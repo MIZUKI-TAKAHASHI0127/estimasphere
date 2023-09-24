@@ -1,14 +1,16 @@
 class PurchaseQuotationsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
-  before_action :set_purchase_quotation, only: [:show, :edit, :update]
+  before_action :set_purchase_quotation, only: [:show, :edit, :update, :generate_pdf]
+  before_action :set_select_collections, only: [:new, :edit]
+
   
 
   def new
-    @purchase_quotation = PurchaseQuotation.new
-    @customers = Customer.all.pluck(:customer_name, :id)
-    @representatives = Representative.all.map { |r| [r.department_name + ' - ' + r.representative_name, r.id] }
+    @customer = params[:customer_id] ? Customer.find(params[:customer_id]) : nil
+    @purchase_quotation = @customer ? @customer.purchase_quotations.build : PurchaseQuotation.new
     20.times { @purchase_quotation.purchase_quotation_items.build } unless @purchase_quotation.purchase_quotation_items.size >= 20
-  end  
+  end
+  
 
   def create
     @purchase_quotation = PurchaseQuotation.new(purchase_quotation_params)
@@ -44,15 +46,16 @@ class PurchaseQuotationsController < ApplicationController
   
   
   def index
+
     @purchase_quotation_items = PurchaseQuotationItem.includes(purchase_quotation: [:customer])
     filter_purchase_quotations
     @purchase_quotation_items = @purchase_quotation_items.order(created_at: :desc).page(params[:page]).per(20)
     puts "@purchase_quotation_items.count: #{@purchase_quotation_items.count}"
   end
   
+  
 
   def show
-    @purchase_quotation = PurchaseQuotation.find(params[:id])
     @commentable = @purchase_quotation
     @customer = @purchase_quotation.customer
     @company_info = CompanyInfo.first
@@ -73,7 +76,7 @@ class PurchaseQuotationsController < ApplicationController
       end
     end
   end
-
+  
   def requote
     # 元の見積を探す
     original_quotation = PurchaseQuotation.find(params[:id])
@@ -102,7 +105,7 @@ class PurchaseQuotationsController < ApplicationController
 end
   
   def edit
-    @purchase_quotation = PurchaseQuotation.find(params[:id])
+    @purchase_quotation_items = @purchase_quotation.purchase_quotation_items
 
     unless session[:allowed_to_edit] == @purchase_quotation.id
       flash[:alert] = '再見積を経由してのみ、この見積を編集できます。'
@@ -113,19 +116,13 @@ end
     # セッションのキーを削除して、次回からのアクセスを制限
     session.delete(:allowed_to_edit)
     
-    @purchase_quotation_items = @purchase_quotation.purchase_quotation_items
-    
     # 既存のアイテム数に基づいて追加の行を作成
     additional_rows = 20 - @purchase_quotation_items.size
     additional_rows.times { @purchase_quotation.purchase_quotation_items.build } if additional_rows > 0
   
-    @customers = Customer.all.pluck(:customer_name, :id)
-    @representatives = Representative.all.map { |r| [r.department_name + ' - ' + r.representative_name, r.id] }
   end
   
   def update
-    @purchase_quotation = PurchaseQuotation.find(params[:id])
-  
     if @purchase_quotation.update(purchase_quotation_params)
         redirect_to purchase_quotation_path(@purchase_quotation), notice: 'purchase quotation was successfully updated.'
     else
@@ -135,8 +132,7 @@ end
         render :edit
     end
   end
-  
-  
+
 
   def new_item
     @purchase_quotation = PurchaseQuotation.new
@@ -249,13 +245,35 @@ end
     end
   end
   
-
   
-
   private
 
   def set_purchase_quotation
     @purchase_quotation = PurchaseQuotation.find(params[:id])
+  end
+
+  def set_select_collections
+    @customers = Customer.all.pluck(:customer_name, :id)
+    @representatives = Representative.all.map { |r| [r.department_name + ' - ' + r.representative_name, r.id] }
+  end
+
+  def filter_purchase_quotations
+    if params[:customer_name].present?
+      @purchase_quotation_items = @purchase_quotation_items.joins(:purchase_quotation).where("purchase_quotations.customer_name LIKE ?", "%#{params[:customer_name]}%")
+    end
+  
+    if params[:quotation_number].present?
+      @purchase_quotation_items = @purchase_quotation_items.joins(:purchase_quotation).where("purchase_quotations.quotation_number LIKE ?", "%#{params[:quotation_number]}%")
+    end
+  
+    if params[:item_name].present?
+      @purchase_quotation_items = @purchase_quotation_items.where("item_name LIKE ?", "%#{params[:item_name]}%")
+    end
+  
+    if params[:category_name].present?
+      @purchase_quotation_items = @purchase_quotation_items.joins(:category).where("categories.category_name LIKE ?", "%#{params[:category_name]}%")
+    end
+    
   end
 
   def purchase_quotation_params
@@ -288,7 +306,7 @@ end
   end
 
   def generate_new_quotation_number
-    date_prefix = Date.today.strftime('P%Y%m%d-')
+    date_prefix = Date.today.strftime('S%Y%m%d-')
     last_quotation = PurchaseQuotation.where('quotation_number LIKE ?', "#{date_prefix}%").order(:quotation_number).last
     if last_quotation.nil?
       "#{date_prefix}001"
@@ -301,24 +319,5 @@ end
   def number_with_delimiter(number)
     number.to_s.gsub(/(\d)(?=(\d{3})+(?!\d))/, '\\1,')
   end
-
-  def filter_purchase_quotations
-    if params[:customer_name].present?
-      @purchase_quotation_items = @purchase_quotation_items.joins(:purchase_quotation).where("purchase_quotations.customer_name LIKE ?", "%#{params[:customer_name]}%")
-    end
-  
-    if params[:quotation_number].present?
-      @purchase_quotation_items = @purchase_quotation_items.joins(:purchase_quotation).where("purchase_quotations.quotation_number LIKE ?", "%#{params[:quotation_number]}%")
-    end
-  
-    if params[:item_name].present?
-      @purchase_quotation_items = @purchase_quotation_items.where("item_name LIKE ?", "%#{params[:item_name]}%")
-    end
-  
-    if params[:category_name].present?
-      @purchase_quotation_items = @purchase_quotation_items.joins(:category).where("categories.category_name LIKE ?", "%#{params[:category_name]}%")
-    end
-  end
-
   
 end

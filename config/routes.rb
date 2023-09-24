@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   resources :company_infos, only: [:new, :create, :index, :show, :edit, :update]
   
   resources :customers, only: [:new, :create, :index, :show, :edit, :update] do
+    resources :sales_quotations, only: [:new]
+    resources :purchase_quotations, only: [:new]
     resources :representatives, only: [:new, :create]
     collection do
       get :find
