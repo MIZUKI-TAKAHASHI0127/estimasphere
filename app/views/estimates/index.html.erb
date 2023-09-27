@@ -2,7 +2,7 @@
     <div class="container mt-2"> <!-- マージンをmt-2に調整 -->
         <div class="row button-row mb-2"> <!-- 各button-rowの下のマージンを追加 -->
             <div class="col-sm">
-              <%= link_to(new_sales_quotation_path, class: 'btn btn-primary btn-lg btn-block') do %>
+              <%= link_to(new_sales_quotation_path, data: { turbo: false }, class: 'btn btn-primary btn-lg btn-block') do %>
                 <i class="fas fa-shopping-cart"></i> 販売見積作成
               <% end %>
               <%= link_to(sales_quotations_path, class: 'btn btn-primary btn-lg btn-block') do %>
@@ -10,7 +10,7 @@
               <% end %>
             </div>  
             <div class="col-sm">
-            <%= link_to(new_purchase_quotation_path, class: 'btn btn-secondary btn-lg btn-block') do %>
+            <%= link_to(new_purchase_quotation_path, data: { turbo: false }, class: 'btn btn-secondary btn-lg btn-block') do %>
                 <i class="fas fa-hammer"></i> 仕入見積作成</button>
             <% end %>
             <%= link_to(purchase_quotations_path, class: 'btn btn-secondary btn-lg btn-block') do %>  

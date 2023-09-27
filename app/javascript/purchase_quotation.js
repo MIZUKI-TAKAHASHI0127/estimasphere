@@ -6,6 +6,7 @@ document.addEventListener("turbo:load", function() {
   let currentRowCount = 0;
   const maxRowsToShowAtOnce = 1;
   const allRows = document.querySelectorAll('.nested-fields');
+  console.log(allRows);
 
   allRows.forEach(row => {
     const fields = Array.from(row.querySelectorAll('.form-control')).filter(el => !el.classList.contains('note'));
@@ -20,6 +21,7 @@ document.addEventListener("turbo:load", function() {
   });
 
   addRowsButton?.addEventListener('click', function() {
+    console.log(addRowsButton);
     for (let i = currentRowCount; i < currentRowCount + maxRowsToShowAtOnce && i < allRows.length; i++) {
       allRows[i].style.display = 'table-row';
     }
@@ -33,7 +35,7 @@ document.addEventListener("turbo:load", function() {
   // This might still be a hack. Consider identifying the root issue.
   setTimeout(() => {
     addRowsButton?.click();
-  }, 100); 
+  }, 300); 
   
   // Customer Selection Logic
   const customerSelect = document.querySelector('.select2-customer');
