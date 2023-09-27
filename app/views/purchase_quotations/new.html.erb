@@ -2,15 +2,15 @@
 <div class="container mt-5">
 
   <% if @purchase_quotation.errors.any? %>
-    <div class="alert alert-danger">
-      <h4><%= pluralize(@purchase_quotation.errors.count, "error") %> prohibited this purchase_quotation from being saved:</h4>
-      <ul>
-        <% @purchase_quotation.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
+  <div class="alert alert-danger">
+    <ul>
+      <% @purchase_quotation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
   <% end %>
+
 
   <div class="d-flex justify-content-center mt-4">
     <h2>仕入見積</h2>
@@ -19,7 +19,7 @@
   <div class="card">
     <div class="card-body">
     <div class="custom-width-container">
-      <%= form_with model: @purchase_quotation do |form| %>
+      <%= form_with model: @purchase_quotation, data: { turbo: false } do |form| %>
         <div class="form-group">
           <%= form.label :quotation_number, "見積番号" %>
           <%= form.text_field :quotation_number, class: "form-control", disabled: true %>
